@@ -1,0 +1,202 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/StyleRegistro.css" rel="stylesheet" />
+</head>
+<body class="bg-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <section>
+                    <div class="text-center">
+                        <style>
+                            .logo {
+                                max-width: 200px;
+                                height: auto;
+                                display: block;
+                                margin: -150px auto 0; /* Margen arriba 20px, centrado horizontalmente */
+                            }
+
+                            input[type=number]::-webkit-inner-spin-button,
+                            input[type=number]::-webkit-outer-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                            }
+
+                            input[type=number] {
+                                -moz-appearance: textfield;
+                            }
+                        </style>
+                        <img src="/Content/Images/logo.png" alt="Logo del proyecto" class="logo">
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="number" name="id_administrador" id="id_administrador" placeholder="Ingrese su numero de identificación" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <select class="txt" id="tipo_id_admin" name="tipo_id_admin">
+                            <option hidden selected>Tipo de identificación</option>
+                            <option value="CC">CC</option>
+                            <option value="TI">TI</option>
+                        </select>
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="text" name="nombre_administrador" id="nombre_administrador" placeholder="Ingrese su nombre completo" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="number" name="edad_administrador" id="edad_administrador" placeholder="Ingrese su edad" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="text" name="correo_admin" id="correo_admin" placeholder="Ingrese su correo" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="number" name="telefono_admin" id="telefono_admin" placeholder="Ingrese su numero de telefono" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="password" name="contraseña_administrador" id="contraseña_administrador" placeholder="Ingrese su contraseña" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <button type="button" class="btn btn-success" id="registrar">Registrarse</button>
+                    </div>
+                    <br />
+
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            // Cuando se hace clic en el botón con id "registrar", se llama a la función Guardar
+            $('#registrar').click(function () {
+                Guardar();
+            });
+        });
+
+        function Guardar() {
+            // Obtener valores de los campos del formulario y limpiar espacios en blanco
+            var id_administrador = $("#id_administrador").val().trim();
+            var tipo_id_admin = $("#tipo_id_admin").val().trim();
+            var nombre_administrador = $("#nombre_administrador").val().trim();
+            var edad_administrador = $("#edad_administrador").val().trim();
+            var correo_admin= $("#correo_admin").val().trim();
+            var telefono_admin= $("#telefono_admin").val().trim();
+            var contraseña_administrador = $("#contraseña_administrador").val().trim();
+
+            // Validación de campos
+            if (id_administrador === '' || tipo_id_admin === '' || nombre_administrador === '' || edad_administrador === '' || correo_admin === '' || telefono_admin === '' || contraseña_administrador === '') {
+                // Mostrar mensaje de error si algún campo está vacío
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Por favor complete todos los campos.'
+                });
+                return;
+            }
+
+            // Validación específica para el campo identificacion
+            if (isNaN(id_administrador) || id_administrador <= 0) {
+                // Mostrar mensaje de error si el campo de identificación no es un número válido
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El campo Identificación debe ser un número válido.'
+                });
+                return;
+            }
+
+            // Validación específica para el campo edad
+            if (isNaN(edad_administrador) || edad_administrador <= 0) {
+                // Mostrar mensaje de error si el campo de edad no es un número válido
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El campo edad debe ser un número válido.'
+                });
+                return;
+            }
+
+            // Validación específica para el campo telefono
+            if (isNaN(telefono_admin) || telefono_admin <= 0) {
+                // Mostrar mensaje de error si el campo de teléfono no es un número válido
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El campo telefono debe ser un número válido.'
+                });
+                return;
+            }
+
+            // Construir objeto Administrador con los datos del formulario
+            var Administrador = {
+                id_administrador: parseInt(id_administrador),
+                tipo_id_admin: tipo_id_admin,
+                nombre_administrador: nombre_administrador,
+                edad_administrador: parseInt(edad_administrador),
+                correo_admin: correo_admin,
+                telefono_admin: parseInt(telefono_admin),
+                contraseña_administrador: contraseña_administrador,
+            };
+
+            // Enviar la solicitud AJAX para registrar al administrador
+            $.ajax({
+                url: '@Url.Action("Registrar_administrador", "Login")',
+                type: "POST",
+                data: JSON.stringify(Administrador),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    // Manejar la respuesta exitosa del servidor
+                    if (data.oper_exitosa) {
+                        // Mostrar mensaje de éxito y redirigir al usuario a la página de inicio de sesión
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Registro exitoso',
+                            text: 'El administrador ha sido registrado correctamente.'
+                        }).then((result) => {
+                            window.location.href = '@Url.Action("Login", "Login")';
+                        });
+                    } else {
+                        // Mostrar mensaje de error si no se pudo registrar al administrador
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.mensaje
+                        });
+                    }
+                },
+                error: function () {
+                    // Mostrar mensaje de error si ocurrió un error en la solicitud AJAX
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al intentar registrar al administrador.'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

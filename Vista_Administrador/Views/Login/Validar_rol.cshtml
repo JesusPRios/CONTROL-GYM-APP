@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/StyleRegistro.css" rel="stylesheet" />
+</head>
+<body class="bg-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <section>
+                    <div class="text-center">
+                        <style>
+                            .logo {
+                                max-width: 200px;
+                                height: auto;
+                                display: block;
+                                margin: -150px auto 0; /* Margen arriba -150px, centrado horizontalmente */
+                            }
+
+                            input[type=number]::-webkit-inner-spin-button,
+                            input[type=number]::-webkit-outer-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                            }
+
+                            input[type=number] {
+                                -moz-appearance: textfield;
+                            }
+                        </style>
+                        <img src="/Content/Images/logo.png" alt="Logo del proyecto" class="logo">
+                    </div>
+                    <br />
+
+                    <div>
+                        <select class="txt select-placeholder" id="rol" name="rol">
+                            <option value="" disabled selected hidden>Selecciona un rol</option>
+                            <option value="Aprendiz">Aprendiz</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+                    <br />
+
+                    <div>
+                        <button type="button" class="btn btn-success" id="validar">Continuar</button>
+                    </div>
+                    <br />
+
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Incluye jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Incluye SweetAlert2 -->
+    <script>
+        $(document).ready(function () { // Espera a que el documento esté completamente cargado
+            $('#validar').click(function () { // Asocia la función a un clic en el botón con id 'validar'
+                var codigo = $('#rol').val(); // Obtiene el valor del campo de entrada con id 'rol'
+
+                function Validar() { // Declaración de la función Validar
+                    var rol = $("#rol").val(); // Obtiene el valor del campo de entrada con id 'rol'
+
+                    if (rol === 'Aprendiz') { // Si el valor de rol es 'Aprendiz'
+                        // Redirige a la acción de registro de aprendiz
+                        window.location.href = '@Url.Action("Registro", "Login")';
+                    }
+                    else {
+                        // Redirige a la acción de validar código
+                        window.location.href = '@Url.Action("Validar_codigo", "Login")';
+                    }
+                }
+
+                Validar(); // Llama a la función Validar después de hacer clic en el botón 'validar'
+            });
+
+            $('#rol').change(function () { // Asocia la función al evento change del campo de entrada con id 'rol'
+                if ($(this).val() != '') { // Si el valor del campo no está vacío
+                    $(this).removeClass('select-placeholder'); // Quita la clase 'select-placeholder'
+                } else {
+                    $(this).addClass('select-placeholder'); // Agrega la clase 'select-placeholder'
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+﻿
+@{
+    ViewBag.Title = "EditarRutina";
+    Layout = "~/Views/Shared/_Layout - Aprendiz.cshtml";
+}
+
+<h2>Editar rutina</h2>
+<hr class="text-dark" />
+
+<div class="container">
+    <div>
+        <label for="id_rutina">ID Rutina:</label>
+        <input type="text" id="id_rutina" name="id_rutina" disabled />
+    </div>
+    <br />
+
+    <div>
+        <label for="rutina">Ingresar rutina:</label>
+        <input type="text" id="rutina" name="rutina">
+    </div>
+    <br />
+
+    <div>
+        <label for="ejercicio">Ingresar ejercicio:</label>
+        <input type="text" id="ejercicio" name="ejercicio">
+    </div>
+    <br />
+
+    <div>
+        <!-- Contenedor div -->
+        <label for="sele_maquina">Seleccionar máquina:</label>
+        <!-- Etiqueta de texto asociada al selector de máquinas -->
+        <select class="select2-selection--multiple" name="sele_maquina[]" id="sele_maquina" multiple>
+            <!-- Selector de múltiples opciones -->
+            <option value=""></option>
+            <!-- Opción vacía por defecto -->
+            @foreach (var maquina in ViewBag.Maquinas)
+            {<!-- Bucle para recorrer cada máquina en ViewBag.Maquinas -->
+                <option value="@maquina.id_maquina">@maquina.nombre_maquina</option>
+ <!-- Opción con el valor del ID de la máquina y el nombre de la máquina -->}
+        </select>
+    </div>
+    <br />
+
+    <div>
+        <label for="dias_ejer">Ingresar días de ejercicio semanal:</label>
+        <input type="number" id="dias_ejer" name="dias_ejer" min="0">
+        <span id="dias_label"></span>
+    </div>
+    <br />
+
+    <div>
+        <label for="hora_ejer">Ingresar horas diarias de ejercicio:</label>
+        <input type="number" id="hora_ejer" name="hora_ejer" min="0">
+        <span id="horas_label"></span>
+    </div>
+    <br />
+
+    <div>
+        <label for="duracion">Duración:</label>
+        <input type="text" id="duracion" name="duracion" readonly>
+        <span id="duracion_label"></span>
+    </div>
+    <br />
+
+
+    <div class="col-12">
+        <button type="button" class="btn btn-secondary" id="atras">Atras</button>
+        <button type="button" class="btn btn-success" id="guardar">Guardar</button>
+    </div>
+
+</div>
+
+@section scripts{
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Incluye SweetAlert2 para mostrar mensajes -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Incluye Select2 CSS para estilos del selector -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Incluye Select2 JavaScript para funcionalidad del selector -->
+
+    <script>
+         // Cuando el documento esté listo, inicializa Select2 en todos los selectores múltiples con la clase select2-selection--multiple y establece un marcador de posición.
+        $(document).ready(function () {
+            $('.select2-selection--multiple').select2({
+                placeholder: "Lista de máquinas"
+            });
+        });
+
+         // Asigna un evento onclick al elemento con id "atras" para redirigir al usuario a la acción "Rutina" del controlador "Aprendiz".
+        document.getElementById("atras").onclick = function () {
+            window.location.href = "@Url.Action("Rutina", "Aprendiz")";
+        };
+       
+         // Cuando el documento esté listo, obtiene los parámetros de la URL y actualiza los campos del formulario con los valores correspondientes.
+        $(document).ready(function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var id_rutina = urlParams.get('id_rutina');
+            var nombre_rutina = urlParams.get('nombre_rutina');
+            var nombre_ejercicio = urlParams.get('nombre_ejercicio');
+            var dias_ejercicio = urlParams.get('dias_ejercicio');
+            var horas_ejercicio = urlParams.get('horas_ejercicio');
+            var duracion_rutina = dias_ejercicio * horas_ejercicio;
+            var maquinasSeleccionadas = urlParams.get('maquinas') ? urlParams.get('maquinas').split(',') : [];
+
+             // Enviar el formulario mediante AJAX
+            $('#id_rutina').val(id_rutina);
+            $('#rutina').val(nombre_rutina);
+            $('#ejercicio').val(nombre_ejercicio);
+            $('#dias_ejer').val(dias_ejercicio);
+            $('#hora_ejer').val(horas_ejercicio);
+            $('#duracion').val(duracion_rutina + " horas");
+            $('#sele_maquina').val(maquinasSeleccionadas).trigger('change');
+        });
+       
+        // Asigna un evento click al elemento con id "guardar" para enviar el formulario mediante AJAX
+        $('#guardar').click(function () {
+            // Crea un objeto formData con los valores del formulario
+            var formData = {
+                idRutina: $('#id_rutina').val(),
+                nombreRutina: $('#rutina').val(),
+                nombreEjercicio: $('#ejercicio').val(),
+                diasEjercicio: $('#dias_ejer').val(),
+                horasEjercicio: $('#hora_ejer').val(),
+                duracionRutina: $('#duracion').val(),
+                idMaquinas: $('#sele_maquina').val()
+            };
+           
+
+            $.ajax({
+                type: "POST", // Realiza una solicitud POST al controlador "Editar_rutina" de "Aprendiz"
+                url: '@Url.Action("Editar_rutina", "Aprendiz")',
+                data: JSON.stringify(formData), // Convierte los datos del formulario a JSON y los envía en el cuerpo de la solicitud              
+                contentType: "application/json; charset=utf-8", // Especifica que el tipo de contenido de la solicitud es JSON
+                
+                success: function (response) {  // Si la solicitud es exitosa, muestra un mensaje de éxito con SweetAlert y redirige al usuario a la página "Rutina" de "Aprendiz"                   
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualización exitosa',
+                        text: 'La actualización se ha guardado correctamente.'
+                    }).then((result) => {
+                        window.location.href = '@Url.Action("Rutina", "Aprendiz")';
+                    });
+                },
+                error: function (xhr, status, error) { // Si ocurre un error durante la solicitud, muestra un mensaje de error con SweetAlert y registra el error en la consola del navegador                    
+                    console.error("Error:", error);
+                    console.error("XHR:", xhr);
+                    console.error("Status:", status);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al actualizar la rutina.'
+                    });
+                }
+            });
+        });
+
+        // Función para calcular la duración total de la rutina basada en días y horas de ejercicio
+        function Calcular_duracion() {
+            // Obtiene el valor del campo días de ejercicio y lo convierte a entero. Si no se puede convertir, se establece en 0.
+            var dias = parseInt(document.getElementById("dias_ejer").value) || 0;
+
+            // Obtiene el valor del campo horas de ejercicio y lo convierte a entero. Si no se puede convertir, se establece en 0.
+            var horas = parseInt(document.getElementById("hora_ejer").value) || 0;
+
+            // Calcula la duración total multiplicando días por horas.
+            var duracionTotal = dias * horas;
+
+            // Actualiza el texto del campo días_ejer con el número de días seguido de "días", o lo deja vacío si no hay días.
+            document.getElementById("dias_ejer").textContent = dias > 0 ? dias + " días" : "";
+
+            // Actualiza el texto del campo hora_ejer con el número de horas seguido de "horas", o lo deja vacío si no hay horas.
+            document.getElementById("hora_ejer").textContent = horas > 0 ? horas + " horas" : "";
+
+            // Actualiza el valor del campo duracion con la duración total seguido de "horas", o lo deja vacío si la duración es 0.
+            document.getElementById("duracion").value = duracionTotal > 0 ? duracionTotal + " horas" : "";
+        }
+
+        // Asigna un evento de entrada al campo días_ejer para llamar a la función Calcular_duracion cuando se cambie el valor.
+        document.getElementById("dias_ejer").addEventListener("input", Calcular_duracion);
+
+        // Asigna un evento de entrada al campo hora_ejer para llamar a la función Calcular_duracion cuando se cambie el valor.
+        document.getElementById("hora_ejer").addEventListener("input", Calcular_duracion);
+
+    </script>
+}
+
+<style>
+    .reg_aprendiz {
+        background-color: rgba(150, 201, 126);
+        --bs-btn-border-color: rbga(150, 201, 126);
+        --bs-btn-hover-color: rbga(150, 201, 126);
+        --bs-btn-hover-bg: rgba(150, 201, 126);
+        border: none;
+        border-radius: 10px;
+        margin-left: 15px;
+        padding: 5px;
+    }
+
+    .container {
+        text-align: left;
+        margin-left: 20px;
+    }
+
+    .lbl {
+        display: inline-block;
+        width: 200px;
+    }
+
+    .txt,
+    select {
+        width: 250px;
+    }
+</style>
+

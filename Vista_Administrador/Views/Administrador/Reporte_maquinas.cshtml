@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Reporte de maquinas";
+    Layout = "~/Views/Shared/_Layout - Administrador.cshtml";
+}
+
+
+<h2>Reporte de Maquinas</h2>
+<hr />
+
+<div class="col-12">
+    <button type="button" class="btn btn-primary" id="ver_reporte">Ver reporte</button>
+</div>
+<br />
+<iframe id="rep_maquinas" style="width:100%; height:700px;" frameborder="1" scrolling="no"></iframe>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#ver_reporte").on("click", function () {
+                $("#rep_maquinas").attr("src", "Ver_reporte_maquinas");
+            });
+        });
+
+    </script>
+
+}

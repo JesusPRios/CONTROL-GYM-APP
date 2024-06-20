@@ -1,0 +1,201 @@
+﻿@{
+    ViewBag.Title = "Detalle de suspencion";
+    Layout = "~/Views/Shared/_Layout - Administrador.cshtml";
+}
+
+<h2>Detalles de suspension</h2>
+<hr />
+<br />
+
+<div class="container">
+    <div>
+        <label class="lbl">ID Suspension:</label>
+        <input class="txt" type="number" id="id_suspension" name="id_suspension" disabled>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">ID Aprendiz:</label>
+        <input class="txt" type="number" id="id_aprendiz" name="id_aprendiz" disabled>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Nombre Aprendiz:</label>
+        <input class="txt" type="text" id="nombre_aprendiz" name="nombre_aprendiz" disabled>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Descripcion de la suspension:</label>
+        <textarea class="txt" id="descripcion_suspension" name="descripcion_suspension"></textarea>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Fecha inicio:</label>
+        <input class="txt" type="date" id="fecha_inicio_suspension" name="fecha_inicio" disabled onchange="calcularDias()">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Fecha fin:</label>
+        <input class="txt" type="date" id="fecha_fin_suspension" name="fecha_fin" onchange="calcularDias()">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Duracion:</label>
+        <input class="txt" type="text" id="duracion_suspension" name="duracion" readonly>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Estado:</label>
+        <select id="estado_suspension" class="txt" name="estado">
+            <option value="Activo">Activa</option>
+            <option value="Inactivo">No activa</option>
+        </select>
+    </div>
+    <br />
+
+    <div class="col-12">
+        <button type="button" class="btn btn-secondary" id="atras">Atras</button>
+        <button type="button" class="btn btn-success" id="guardar">Guardar</button>
+    </div>
+</div>
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById("atras").onclick = function () {
+            window.location.href = '@Url.Action("Suspension", "Administrador")';
+        };
+
+        $(document).ready(function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var id_suspension = urlParams.get('id');
+            var id_aprendiz = urlParams.get('id_aprendiz');
+            var nombre_aprendiz = urlParams.get('nombre');
+            var descripcion_suspension = urlParams.get('descripcion');
+            var fecha_inicio_suspension = urlParams.get('fecha_inicio');
+            var fecha_fin_suspension = urlParams.get('fecha_fin');
+            var duracion_suspension = urlParams.get('duracion');
+            var estado_suspension = urlParams.get('estado');
+
+            $('#id_suspension').val(id_suspension);
+            $('#id_aprendiz').val(id_aprendiz);
+            $('#nombre_aprendiz').val(nombre_aprendiz);
+            $('#descripcion_suspension').val(descripcion_suspension);
+            $('#fecha_inicio_suspension').val(fecha_inicio_suspension);
+            $('#fecha_fin_suspension').val(fecha_fin_suspension);
+            $('#duracion_suspension').val(duracion_suspension);
+            $('#estado_suspension').val(estado_suspension);
+
+            // Seleccionar la opción correcta para el tipo de máquina
+            $('#estado_suspension').val(estado_suspension).change();
+        });
+
+        // Enviar el formulario mediante AJAX
+        $('#guardar').click(function () {
+            // Se crea un objeto formData que contiene los datos del formulario
+            var formData = {
+                id_suspension: $('#id_suspension').val(), // Obtiene el valor del campo id_suspension del formulario
+                descripcion_suspension: $('#descripcion_suspension').val(), // Obtiene el valor del campo descripcion_suspension del formulario
+                fecha_fin_suspension: $('#fecha_fin_suspension').val(), // Obtiene el valor del campo fecha_fin_suspension del formulario
+                duracion_suspension: $('#duracion_suspension').val(), // Obtiene el valor del campo duracion_suspension del formulario
+                estado_suspension: $('#estado_suspension').val() // Obtiene el valor del campo estado_suspension del formulario
+            };
+
+            // Se realiza una solicitud AJAX al servidor
+            $.ajax({
+                type: "POST", // Se especifica que se está realizando una solicitud POST
+                url: '@Url.Action("EditarSuspension", "Administrador")', // Especifica la URL a la que se enviará la solicitud utilizando ASP.NET MVC
+                data: JSON.stringify(formData), // Los datos del formulario se convierten a formato JSON y se envían en el cuerpo de la solicitud
+                contentType: "application/json; charset=utf-8", // Se especifica el tipo de contenido de la solicitud como JSON
+                success: function (response) { // Esta función se ejecuta si la solicitud es exitosa
+                    // Muestra un mensaje de éxito utilizando SweetAlert y redirige al usuario a la página de suspensiones una vez que la suspensión ha sido guardada correctamente en la base de datos
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualización exitosa',
+                        text: 'La actualización se ha guardado correctamente en la base de datos.'
+                    }).then((result) => {
+                        window.location.href = '@Url.Action("Suspension", "Administrador")';
+                    });
+                },
+                error: function (xhr, status, error) { // Esta función se ejecuta si ocurre algún error durante la solicitud
+                    // Muestra un mensaje de error utilizando SweetAlert y registra el error en la consola del navegador para fines de depuración
+                    console.error(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al actualizar la suspensión.'
+                    });
+                }
+            });
+        });
+
+
+        // Esta función calcula la duración de la suspensión en días o meses
+        function calcularDias() {
+            // Se obtiene la fecha de inicio de la suspensión del campo de entrada correspondiente
+            var fechaInicio = new Date(document.getElementById("fecha_inicio_suspension").value);
+            // Se obtiene la fecha de fin de la suspensión del campo de entrada correspondiente
+            var fechaFin = new Date(document.getElementById("fecha_fin_suspension").value);
+
+            // Se verifica que ambas fechas sean válidas y que la fecha de fin sea posterior a la fecha de inicio
+            if (fechaInicio && fechaFin && fechaFin >= fechaInicio) {
+                // Se calcula la diferencia en milisegundos entre las fechas de inicio y fin
+                var diferenciaMilisegundos = fechaFin - fechaInicio;
+                // Se calcula la diferencia en días donde se usa el math.floor para redondearlo hacia abajo
+                var diferenciaDias = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60 * 24));
+
+                // Se calcula la diferencia en meses dividiendo la diferencia en días por 30
+                var diferenciaMeses = diferenciaDias / 30;
+                var duracionTexto;
+
+                // Si la diferencia en meses es mayor o igual a 1, se muestra en meses
+                if (diferenciaMeses >= 1) {
+                    duracionTexto = Math.floor(diferenciaMeses) + (Math.floor(diferenciaMeses) === 1 ? " mes" : " meses");
+                } else {
+                    // Si la diferencia en meses es menor que 1, se muestra en días
+                    duracionTexto = diferenciaDias + (diferenciaDias === 1 ? " día" : " días");
+                }
+
+                // Se asigna el texto de duración calculado al campo de entrada correspondiente
+                document.getElementById("duracion_suspension").value = duracionTexto;
+            } else {
+                // Si las fechas no son válidas o la fecha de fin es anterior a la fecha de inicio, se muestra una alerta
+                alert("Por favor, asegúrese de que las fechas sean válidas y que la fecha de fin sea posterior a la fecha de inicio.");
+                // Se limpia el campo de entrada de duración y se establece el campo de fecha de fin en vacío
+                document.getElementById("duracion_suspension").value = "";
+                document.getElementById("fecha_fin_suspension").value = "";
+            }
+        }
+
+    </script>
+}
+
+<style>
+    .container {
+        text-align: left;
+        margin-left: 20px;
+    }
+
+    .lbl {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .txt,
+    select {
+        width: 200px;
+    }
+
+    textarea.txt {
+        width: 200px;
+        border: none;
+        border-radius: 12px;
+        background-color: #D9D9D9;
+    }
+</style>

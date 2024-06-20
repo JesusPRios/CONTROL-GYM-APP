@@ -1,0 +1,118 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("/Content/Images/login.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial;
+}
+
+.form-container {
+    text-align: center; /* Centrar el contenido horizontalmente */
+}
+
+    /* Estilo adicional para centrar el botón */
+    .form-container .btn-primary {
+        width: 100%;
+    }
+
+/* Estilo para el fondo negro semitransparente */
+.card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semitransparente */
+    z-index: -1; /* Asegura que el fondo esté detrás del contenido */
+}
+
+/* Estilo para los inputs */
+.form-control {
+    background-color: rgb(171 177 177); /* Fondo negro semitransparente */
+    border: none; /* Eliminar el borde */
+    border-radius: 20px; /* Bordes redondeados */
+    padding: 20px; /* Ajustar el espaciado interno */
+    width: 350px; /* Ancho del input al 100% del contenedor, menos el doble del padding */
+    margin-bottom: 30px; /* Espaciado inferior entre inputs */
+    box-sizing: border-box; /* Incluir el padding en el ancho total */
+    font-size: 18px; /* Tamaño de la fuente */
+}
+
+    /* Estilo para los placeholders dentro de los inputs */
+    .form-control::placeholder {
+        color: white; /* Color del texto del marcador */
+        opacity: 0.7; /* Opacidad del texto del marcador */
+    }
+
+/* Estilo para el botón */
+.btn-primary {
+    width: 80%; /* Ancho del botón al 80% del contenedor */
+    height: 60px; /* Altura del botón */
+    font-size: 20px; /* Tamaño de fuente */
+    border-radius: 30px; /* Bordes redondeados */
+    background-color: #7ED957;
+    margin-top: 20px; /* Espaciado superior entre el botón y las cajas de texto */
+}
+
+.text-center {
+    text-align: center; /* Centrar el contenido horizontalmente */
+}
+
+.card {
+    color: white;
+    padding: 100px;
+    margin-top: 20px; /* Espacio entre el logo y el formulario */
+}
+
+.logo {
+    max-width: 240px; /* Tamaño máximo del logo */
+    margin-bottom: 20px; /* Espacio entre el logo y el formulario */
+}
+
+.btn-primary {
+    width: 100%; /* Ancho del botón */
+    height: 60px; /* Altura del botón */
+    font-size: 20px; /* Tamaño de fuente */
+}
+
+.text-center {
+    text-align: center; /* Centrar el contenido horizontalmente */
+}
+
+.card {
+    color: white;
+    padding: 20px;
+    margin-top: 20px; /* Espacio entre el logo y el formulario */
+}
+
+.logo {
+    max-width: 150px; /* Tamaño máximo del logo */
+    margin-bottom: 20px; /* Espacio entre el logo y el formulario */
+}
+
+.welcome-text {
+    font-size: 24px; /* Tamaño de fuente del mensaje de bienvenida */
+    color: #fff; /* Color del texto */
+    margin-top: 10px; /* Espacio entre el logo y el mensaje de bienvenida */
+}
+
+.btn-primary {
+    width: 100%; /* Ancho del botón */
+    height: 60px; /* Altura del botón */
+    font-size: 20px; /* Tamaño de fuente */
+}
+
+.btn-registro a{
+    text-decoration:none;
+    color: #ffffff;
+}
+
+.alert-danger-custom {
+    background-color: rgba(255, 0, 0, 0.4); /* Rojo con 50% de transparencia */
+    border-radius: 10px;
+}

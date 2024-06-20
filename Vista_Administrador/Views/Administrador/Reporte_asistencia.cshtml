@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Reporte_asistencia";
+    Layout = "~/Views/Shared/_Layout - Administrador.cshtml";
+}
+
+<h2>Reporte Asistencia</h2>
+<hr />
+<br />
+
+
+<div class="col-12">
+    <button type="button" class="btn btn-primary" id="ver_reporte">Ver reporte</button>
+</div>
+<br />
+<iframe id="rep_asistencia" style="width:100%; height:700px;" frameborder="1" scrolling="no"></iframe>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#ver_reporte").on("click", function () {
+                $("#rep_asistencia").attr("src", "Ver_reporte_asistencia");
+            });
+        });
+    </script>
+}

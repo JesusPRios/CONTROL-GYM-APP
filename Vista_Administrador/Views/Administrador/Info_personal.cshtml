@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "Informacion personal";
+    Layout = "~/Views/Shared/_Layout - Administrador.cshtml";
+}
+
+<h2>Modificar Información personal</h2>
+<br />
+<h6> Datos personales</h6>
+<hr />
+<br />
+<div class="container">
+    <div>
+        <label class="lbl">Tipo de identificación:</label>
+        <select class="txt" id="tipo_id" name="tipo_id" disabled>
+            <option value="CC">CC</option>
+            <option value="TI">TI</option>
+        </select>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Número de identificación:</label>
+        <input class="txt" type="text" id="numero_id" name="numero_id" disabled>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Nombres:</label>
+        <input class="txt" type="text" id="nombre" name="nombre">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Edad:</label>
+        <input class="txt" type="text" id="edad" name="edad">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Correo:</label>
+        <input class="txt" type="text" id="correo" name="correo">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Teléfono:</label>
+        <input class="txt" type="text" id="telefono" name="telefono">
+    </div>
+    <br />
+
+    <div class="col-12">
+        <button id="guardar" class="btn btn-success">Guardar</button>
+    </div>
+</div>
+
+<style>
+    .container {
+        text-align: left;
+        margin-left: 20px;
+    }
+
+    .lbl {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .txt,
+    .select {
+        width: 260px;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+@section scripts{
+    <!-- Incluye SweetAlert2 desde CDN para mostrar mensajes al usuario -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            // Obtener información del administrador al cargar la página
+            $.ajax({
+                url: '@Url.Action("MostrarInfo", "Administrador")', // URL de la acción "MostrarInfo" del controlador "Administrador"
+                type: 'POST',
+                dataType: 'json',
+                success: function (administrador) { // Función que se ejecuta si la solicitud AJAX tiene éxito
+                    if (administrador) {
+                        // Asigna los valores obtenidos a los campos correspondientes del formulario
+                        $('#tipo_id').val(administrador.tipo_id_admin);
+                        $('#numero_id').val(administrador.id_administrador);
+                        $('#nombre').val(administrador.nombre_administrador);
+                        $('#edad').val(administrador.edad_administrador);
+                        $('#correo').val(administrador.correo_admin);
+                        $('#telefono').val(administrador.telefono_admin);
+                    } else {
+                        // Muestra un mensaje de error si no se obtuvieron los datos del administrador
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Ocurrió un error al obtener los datos del administrador.'
+                        });
+                    }
+                },
+                error: function (xhr, status, error) { // Función que se ejecuta si hay un error en la solicitud AJAX
+                    console.error('Error al obtener los datos del administrador:', error);
+                }
+            });
+
+            // Manejar el evento de clic del botón "Guardar"
+            $('#guardar').click(function () {
+                // Recolectar los datos del administrador desde los campos del formulario
+                var administrador = {
+                    id_administrador: $('#numero_id').val(),
+                    nombre_administrador: $('#nombre').val(),
+                    edad_administrador: $('#edad').val(),
+                    correo_admin: $('#correo').val(),
+                    telefono_admin: $('#telefono').val()
+                };
+
+                // Enviar los datos actualizados del administrador al servidor mediante AJAX
+                $.ajax({
+                    url: '@Url.Action("EditarInfoAdministrador", "Administrador")', // URL de la acción "EditarInfoAdministrador" del controlador "Administrador"
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(administrador), // Convertir el objeto administrador a formato JSON
+                    dataType: 'json',
+                    success: function (response) { // Función que se ejecuta si la solicitud AJAX tiene éxito
+                        if (response.success) {
+                            // Mostrar un mensaje de éxito si la actualización se realizó correctamente
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Actualización exitosa',
+                                text: 'La actualización se ha guardado correctamente en la base de datos.'
+                            }).then((result) => {
+                                window.location.href = '@Url.Action("Index", "Administrador")'; // Redirigir a la página de inicio del administrador
+                            });
+                        } else {
+                            // Mostrar un mensaje de error si hubo algún problema en la actualización
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.error
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) { // Función que se ejecuta si hay un error en la solicitud AJAX
+                        console.error('Error al actualizar la información:', error);
+                    }
+                });
+            });
+        });
+    </script>
+}

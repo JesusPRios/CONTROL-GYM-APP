@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "Maquinas";
+    Layout = "~/Views/Shared/_Layout - Administrador.cshtml";
+}
+
+<h2>Máquinas</h2>
+<hr />
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-dumbbell me-1"></i> Lista de Máquinas
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                @using (Html.BeginForm("Reg_maquinas", "Administrador", FormMethod.Post))
+                {
+                    <button class="btn btn-success">Nueva máquina</button>
+                }
+            </div>
+        </div>
+        <hr />
+        <div class="table-responsive">
+            <table id="tabla_maqui" class="display cell-border" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre Máquina</th>
+                        <th>Tipo de máquina</th>
+                        <th>Cantidad máquina</th>
+                        <th>Estado de la máquina</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br />
+
+@section scripts{
+    <!-- Incluir SweetAlert2 desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function() {
+            // Inicializar DataTable
+            var tabladata = $("#tabla_maqui").DataTable({
+                responsive: true, // Hacer la tabla responsive
+                ordering: false, // Deshabilitar ordenamiento
+                lengthChange: false, // Deshabilitar cambio de tamaño de página
+                searching: false, // Deshabilitar búsqueda
+                ajax: {
+                    url: '@Url.Action("Listar_maquinas", "Administrador")', // URL para obtener los datos de las máquinas
+                    type: "GET",
+                    dataType: "json",
+                },
+                columns: [
+                    { data: "id_maquina" }, // Columna para el ID de la máquina
+                    { data: "nombre_maquina" }, // Columna para el nombre de la máquina
+                    { data: "tipo_maquina" }, // Columna para el tipo de máquina
+                    { data: "cantidad_maquinas" }, // Columna para la cantidad de máquinas
+                    { data: "estado_maquina" }, // Columna para el estado de la máquina
+                    {
+                        // Columna de acciones: editar y eliminar
+                        "defaultContent": '<button type="button" class="btn btn-info btn-sm btn_editar"><i class="fas fa-pen"></i></button>' +
+                            '<button type="button" class="btn btn-danger btn-sm ms-2 btn_eliminar"><i class="fas fa-trash"></i></button>',
+                        orderable: false, // No permitir ordenar por esta columna
+                        searchable: false, // No permitir buscar por esta columna
+                        width: "60px" // Ancho de la columna
+                    }
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json" // Idioma español para DataTable
+                }
+            });
+
+            // Función para redirigir a la página de edición con la información de la máquina seleccionada
+            function editarMaquina(id_maquina, nombre_maquina, tipo_maquina, estado_maquina, cantidad_maquinas) {
+                window.location.href = '@Url.Action("EditarMaquina", "Administrador")' + '?id=' + id_maquina + '&nombre=' + nombre_maquina + '&tipo=' + tipo_maquina + '&estado=' + estado_maquina + '&cantidad=' + cantidad_maquinas;
+            }
+
+            // Captura el clic del botón "Editar" en la tabla
+            $(document).on("click", ".btn_editar", function () {
+                var fila = $(this).closest("tr"); // Obtener la fila seleccionada
+                var filaSeleccionada = tabladata.row(fila).data(); // Obtener los datos de la fila
+                // Llamar a la función de edición con los datos de la máquina seleccionada
+                editarMaquina(filaSeleccionada.id_maquina, filaSeleccionada.nombre_maquina, filaSeleccionada.tipo_maquina, filaSeleccionada.estado_maquina, filaSeleccionada.cantidad_maquinas);
+            });
+
+            // Función para eliminar la máquina seleccionada con confirmación
+            function eliminarMaquina(id_maquina) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) { // Si se confirma la eliminación
+                        // Enviar solicitud AJAX para eliminar la máquina
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("EliminarMaquina", "Administrador")',
+                            data: { id_maquina: id_maquina },
+                            success: function (response) {
+                                if (response.success) {
+                                    // Mostrar mensaje de éxito y recargar la tabla
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Eliminación exitosa',
+                                        text: 'La máquina ha sido eliminada correctamente de la base de datos.'
+                                    }).then((result) => {
+                                        tabladata.ajax.reload(); // Recargar los datos de la tabla
+                                    });
+                                } else {
+                                    // Mostrar mensaje de error si la eliminación no fue exitosa
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: 'Ocurrió un error al eliminar la máquina: ' + response.error
+                                    });
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(error);
+                                // Mostrar mensaje de error si hay un error en la solicitud AJAX
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Ocurrió un error al eliminar la máquina.'
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Captura el clic del botón "Eliminar" en la tabla
+            $(document).on("click", ".btn_eliminar", function () {
+                var fila = $(this).closest("tr"); // Obtener la fila seleccionada
+                var filaSeleccionada = tabladata.row(fila).data(); // Obtener los datos de la fila
+                // Llamar a la función de eliminación con el ID de la máquina seleccionada
+                eliminarMaquina(filaSeleccionada.id_maquina);
+            });
+        });
+    </script>
+}

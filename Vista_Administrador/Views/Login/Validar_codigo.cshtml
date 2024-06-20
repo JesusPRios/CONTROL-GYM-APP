@@ -1,0 +1,100 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/StyleRegistro.css" rel="stylesheet" />
+</head>
+<body class="bg-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <section>
+                    <div class="text-center">
+                        <style>
+                            .logo {
+                                max-width: 200px;
+                                height: auto;
+                                display: block;
+                                margin: -150px auto 0; /* Margen arriba 20px, centrado horizontalmente */
+                            }
+
+                            input[type=number]::-webkit-inner-spin-button,
+                            input[type=number]::-webkit-outer-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                            }
+
+                            input[type=number] {
+                                -moz-appearance: textfield;
+                            }
+                        </style>
+                        <img src="/Content/Images/logo.png" alt="Logo del proyecto" class="logo">
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="text" name="codigo" id="codigo" placeholder="Ingrese el codigo de invitacion" autocomplete="off" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <button type="button" class="btn btn-success" id="validar">Validar codigo</button>
+                    </div>
+                    <br />
+
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Incluye jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Incluye SweetAlert2 -->
+    <script>
+        $(document).ready(function () { // Espera a que el documento esté completamente cargado
+            $('#validar').click(function () { // Asocia la función a un clic en el botón con id 'validar'
+                var codigo = $('#codigo').val(); // Obtiene el valor del campo de entrada con id 'codigo'
+
+                $.ajax({
+                    url: '@Url.Action("Validar_codigo", "Login")',  // URL para la acción de validar el código, ajusta según tu aplicación
+                    type: 'POST',  // Tipo de solicitud AJAX
+                    dataType: 'json',  // Tipo de datos esperados del servidor
+                    data: { codigo: codigo },  // Datos enviados al servidor, en este caso el código a validar
+                    success: function (result) { // Función que se ejecuta si la solicitud AJAX tiene éxito
+                        if (result.isValid) { // Si el resultado indica que el código es válido
+                            Swal.fire({ // Muestra un cuadro de mensaje de éxito con SweetAlert2
+                                icon: 'success',
+                                title: 'Éxito',
+                                text: 'Verificación exitosa'
+                            }).then((result) => {
+                                // Redirige a la página de registro de administrador después de que el usuario confirme
+                                window.location.href = '@Url.Action("Registro_administrador", "Login")';
+                            });
+                        }
+                        else { // Si el resultado indica que el código no es válido
+                            // Muestra un cuadro de mensaje de error con SweetAlert2
+                            Swal.fire(
+                                'Error',
+                                'El código de invitación es incorrecto. ' + (result.error ? result.error : ''),
+                                'error'
+                            );
+                        }
+                    },
+                    error: function (xhr, status, error) { // Función que se ejecuta si hay algún error en la solicitud AJAX
+                        // Muestra un cuadro de mensaje de error con SweetAlert2 indicando el error
+                        Swal.fire(
+                            'Error',
+                            'Error al validar el código de invitación. ' + xhr.responseText,
+                            'error'
+                        );
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

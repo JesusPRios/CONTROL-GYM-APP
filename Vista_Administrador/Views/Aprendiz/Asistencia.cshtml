@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Asistencia";
+    Layout = "~/Views/Shared/_Layout - Aprendiz.cshtml";
+}
+
+<h2>Registro de asistencias</h2>
+<hr />
+<div class="col-12">
+    <input type="hidden" id="id_aprendiz" value="@ViewBag.IdAprendiz" />
+    <button id="btnRegistrarIngreso" type="button" class="btn btn-success" onclick="RegistrarIngreso()">Registrar Ingreso</button>
+    <button id="btnRegistrarSalida" type="button" class="btn btn-danger" onclick="RegistrarSalida()" style="display:none;">Registrar Salida</button>
+</div>
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        function RegistrarIngreso() {
+            $.ajax({
+                url: '@Url.Action("Registrar_ingreso", "Aprendiz")',
+                type: 'POST',
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: 'Éxito',
+                            text: 'Ingreso registrado con éxito.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                        // Ocultar el botón de ingreso y mostrar el botón de salida
+                        document.getElementById('btnRegistrarIngreso').style.display = 'none';
+                        document.getElementById('btnRegistrarSalida').style.display = 'block';
+                    } else {
+                        // Mostrar un mensaje de error utilizando SweetAlert
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Error al registrar el ingreso: ' + response.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Mostrar un mensaje de error si falla la solicitud AJAX
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error al registrar el ingreso: ' + error,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        }
+
+        function RegistrarSalida() {
+            $.ajax({
+                url: '@Url.Action("Registrar_salida", "Aprendiz")',
+                type: 'POST',
+                success: function(response) {
+                    if (response.success) {
+                        // Mostrar un mensaje de éxito si la salida se registra correctamente
+                        Swal.fire({
+                            title: 'Éxito',
+                            text: 'Salida registrada con éxito.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                        // Ocultar el botón de salida después de registrar la salida
+                        document.getElementById('btnRegistrarSalida').style.display = 'none';
+                    } else {
+                        // Mostrar un mensaje de error utilizando SweetAlert si falla el registro de salida
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Error al registrar la salida: ' + response.message,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Mostrar un mensaje de error si falla la solicitud AJAX para registrar la salida
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error al registrar la salida: ' + error,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        }
+    </script>
+}

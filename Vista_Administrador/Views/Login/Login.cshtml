@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/StyleLogin.css" rel="stylesheet" />
+</head>
+<body class="bg-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="text-center mb-4">
+                    <img src="/Content/Images/logo.png" alt="Logo del proyecto" class="logo">
+                    <p class="welcome-text">¡Bienvenido a Gym Control!</p>
+                </div>
+                <div class="card shadow-lg border-0 rounded-lg">
+                    <div class="card-body">
+                        <div class="form-container">
+                            <form action="@Url.Action("Login", "Login")" method="post">
+
+                                <div>
+                                    @if (!string.IsNullOrEmpty(ViewBag.Error))
+                                    {
+                                        <div class="alert alert-danger-custom" role="alert">
+                                            @ViewBag.Error
+                                        </div>
+                                    }
+                                </div>
+
+                                <br />
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" name="id" type="number" placeholder="Numero de identificacion">
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" name="contraseña" type="password" placeholder="Contraseña">
+                                </div>
+
+                                <div class="align-content-center btn-registro">
+                                    <a href="@Url.Action("ReestablecerContraseña", "Login")">¿Has olvidado tu contraseña? Reestablecela aqui!</a>
+                                </div>
+
+                                <div class="justify-content-between mt-4 mb-0">
+                                    <button type="submit" class="btn btn-primary btn-lg">INICIAR SESION</button>
+                                </div>
+                                <br />
+                                <div class="align-content-center btn-registro" style="text-align: center;">
+                                    <a href="@Url.Action("Validar_rol", "Login")">Registrate ahora</a>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</body>
+</html>

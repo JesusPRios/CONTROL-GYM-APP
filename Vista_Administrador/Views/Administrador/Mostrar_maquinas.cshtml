@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Mostrar maquinas";
+    Layout = "~/Views/Shared/_Layout - Administrador.cshtml";
+}
+
+<h2>Maquinas</h2>
+<br />
+<hr />
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-dumbbell me-1"></i> Lista de Maquinas
+    </div>
+    <div class="card-body">
+        <table id="tabla_maqui" class="display cell-border" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Maquina</th>
+                    <th>Tipo de maquina</th>
+                    <th>Cantidad maquina</th>
+                    <th>Estado de la maquina</th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<br />
+@using (Html.BeginForm("maquinas", "Administrador", FormMethod.Post))
+{
+    <!-- Botón para regresar a la página de "Maquinas" -->
+    <button class="atras"> Atras </button>
+}
+
+@section scripts{
+    <script>
+        // Inicialización de DataTable
+        tabladato = $("#tabla_maqui").DataTable({
+            responsive: true, // Habilita la respuesta del diseño
+            ordering: false, // Deshabilita la ordenación por defecto
+            "ajax": {
+                url: '@Url.Action("Listar_maquinas", "Administrador")', // URL para obtener los datos JSON
+                type: "GET", // Método HTTP utilizado para la solicitud
+                dataType: "json", // Tipo de datos esperados en la respuesta
+            },
+            "columns": [
+                { "data": "id_maquina" }, // Columna para el ID de la máquina
+                { "data": "nombre_maquina" }, // Columna para el nombre de la máquina
+                { "data": "tipo_maquina" }, // Columna para el tipo de máquina
+                { "data": "cantidad_maquinas" }, // Columna para la cantidad de máquinas
+                { "data": "estado_maquina" }, // Columna para el estado de la máquina
+                {
+                    // Columna para los botones de editar y eliminar
+                    "defaultContent": '<button type="button" class="btn btn-info btn-sm btn_editar"><i class="fas fa-pen"></i></button>' +
+                        '<button type="button" class="btn btn-danger btn-sm ms-2 btn_eliminar"><i class="fas fa-trash"></i></button>',
+                    "orderable": false, // No permite ordenar por esta columna
+                    "searchable": false, // No permite buscar en esta columna
+                    "width": "90px" // Ancho de la columna
+                }
+            ],
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json" // URL del archivo de idioma para DataTables en español
+            }
+        });
+    </script>
+}
+
+
+<style>
+    .atras {
+        background-color: rgba(150, 201, 126);
+        --bs-btn-border-color: rbga(150, 201, 126);
+        --bs-btn-hover-color: rbga(150, 201, 126);
+        --bs-btn-hover-bg: rgba(150, 201, 126);
+        border: none;
+        border-radius: 10px;
+        margin-left: 15px;
+        padding: 5px;
+    }
+</style>

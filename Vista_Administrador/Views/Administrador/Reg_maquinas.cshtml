@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Registrar maquinas";
+    Layout = "~/Views/Shared/_Layout - Administrador.cshtml";
+}
+
+<h2>Gestionar Máquinas</h2>
+<br />
+<h5>Registrar Máquinas</h5>
+<hr />
+<div class="container">
+
+    <div>
+        <label class="lbl">Nombre de la máquina:</label>
+        <input class="txt" type="text" id="nombre_maq" name="nombre_maq">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Tipo de máquina:</label>
+        <input class="txt" type="text" id="tipo_maq" name="tipo_maq">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Estado de máquina:</label>
+        <select class="txt" id="estado_maq" name="estado_maq">
+            <option value=""></option>
+            <option value="Activa">Activa</option>
+            <option value="No activa">No activa</option>
+        </select>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Cantidad de máquinas:</label>
+        <input class="txt" type="number" id="cantidad_maq" name="cantidad_maq">
+    </div>
+    <br />
+
+    <div class="col-12">
+        <button type="button" class="btn btn-secondary" id="atras">Atras</button>
+        <button type="button" onclick="Guardar();" class="btn btn-success" id="guardarMaquina">Guardar</button>
+    </div>
+
+    <script>
+        document.getElementById("atras").onclick = function () {
+        window.location.href = "@Url.Action("Maquinas", "Administrador")";
+    };
+    </script>
+</div>
+
+<style>
+    .container {
+        text-align: left;
+        margin-left: 20px;
+    }
+
+    .lbl {
+        display: inline-block;
+        width: 150px
+    }
+
+    .txt,
+    select {
+        width: 200px;
+    }
+
+    .guardar_maqui,
+    .atras {
+        background-color: rgba(150, 201, 126);
+        border: none;
+        border-radius: 10px;
+        margin-left: 15px;
+        padding: 5px;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Se carga la librería SweetAlert2 -->
+    <script>
+        function Guardar() {
+            var maquina = {
+                nombre_maquina: $("#nombre_maq").val(), // Se obtiene el valor del campo de nombre de máquina
+                tipo_maquina: $("#tipo_maq").val(), // Se obtiene el valor del campo de tipo de máquina
+                estado_maquina: $("#estado_maq").val(), // Se obtiene el valor del campo de estado de máquina
+                cantidad_maquinas: $("#cantidad_maq").val() // Se obtiene el valor del campo de cantidad de máquinas
+            };
+
+            $.ajax({
+                url: '@Url.Action("GuardarMaquina", "Administrador")', // URL para enviar la solicitud de guardado al controlador
+                type: "POST", // Método HTTP utilizado para la solicitud
+                data: JSON.stringify(maquina), // Datos convertidos a formato JSON para enviar al servidor
+                contentType: "application/json; charset=utf-8", // Tipo de contenido que se está enviando
+                dataType: "json", // Tipo de datos esperados en la respuesta
+                success: function (data) {
+                    if (data.oper_exitosa) { // Si la operación fue exitosa según la respuesta del servidor
+                        // Mostrar notificación de registro exitoso con SweetAlert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Registro exitoso',
+                            text: 'El registro se ha guardado correctamente en la base de datos.'
+                        }).then((result) => {
+                            window.location.href = '@Url.Action("Maquinas", "Administrador")'; // Redirigir a la página de máquinas
+                        });
+                    } else {
+                        console.log("Error: " + data.mensaje); // Mostrar mensaje de error en la consola en caso de falla
+                    }
+                },
+                error: function () {
+                    console.log("Error en la solicitud AJAX"); // Mostrar mensaje de error en la consola en caso de error de solicitud AJAX
+                }
+            });
+        }
+    </script>
+}

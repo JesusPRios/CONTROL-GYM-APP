@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewBag.Title = "Rutina";
+    Layout = "~/Views/Shared/_Layout - Aprendiz.cshtml";
+}
+
+<h2>Rutina</h2>
+<hr />
+
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-boxes me-1"></i> Lista de rutina
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-success" id="CrearRutinaBtn">Crear rutina</button>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("CrearRutinaBtn").onclick = function () {
+                window.location.href = "@Url.Action("CrearRutinas", "Aprendiz", FormMethod.Post)";
+            };
+        </script>
+        <hr />
+
+        <table id="tabla_rutina" class="display cell-border" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID rutina</th>
+                    <th>Rutina</th>
+                    <th>Ejercicio</th>
+                    <th>Días de ejercicio</th>
+                    <th>Horas de ejercicio</th>
+                    <th>Duración</th>
+                    <th>Máquina</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Incluye SweetAlert2 para mostrar mensajes -->
+    <script>
+        var filaSeleccionada; // Variable global para almacenar la fila seleccionada
+        var tabladata; // Variable para almacenar la tabla DataTable
+
+        // Inicializa la tabla DataTable
+        tabladata = $("#tabla_rutina").DataTable({
+            responsive: true, // Hace que la tabla sea responsive
+            ordering: false, // Desactiva la ordenación de columnas
+            lengthChange: false, // Desactiva el cambio de número de registros mostrados por página
+            searching: false, // Desactiva la búsqueda en la tabla
+            "ajax": {
+                url: '@Url.Action("Listar_rutinas", "Aprendiz")', // URL para obtener los datos de las rutinas
+                type: "GET", // Tipo de petición AJAX (GET en este caso)
+                dataType: "json", // Tipo de datos esperados
+            },
+            "columns": [
+                { "data": "id_rutina" }, // Columna para mostrar el ID de la rutina
+                { "data": "nombre_rutina" }, // Columna para mostrar el nombre de la rutina
+                { "data": "oEjercicio.nombre_ejercicio" }, // Columna para mostrar el nombre del ejercicio
+                { "data": "oEjercicio.dias_ejercicio" }, // Columna para mostrar los días de ejercicio
+                { "data": "oEjercicio.horas_ejercicio" }, // Columna para mostrar las horas de ejercicio
+                { "data": "duracion_rutina" }, // Columna para mostrar la duración de la rutina
+                {
+                    "data": "oRutina_Maquina", // Columna para mostrar las máquinas asociadas a la rutina
+                    "render": function (data, type, row) {
+                        if (data && data.length > 0) {
+                            // Si hay máquinas asociadas, las muestra en formato de lista separadas por coma
+                            return data.map(function (rm) {
+                                return rm.oMaquina.nombre_maquina;
+                            }).join(", ");
+                        } else {
+                            // Si no hay máquinas asociadas, muestra "Sin máquinas"
+                            return "Sin máquinas";
+                        }
+                    }
+                },
+                {
+                    // Columna para mostrar botones de editar y eliminar
+                    "defaultContent": '<button type="button" class="btn btn-info btn-sm btn_editar"><i class="fas fa-pen"></i></button>' +
+                        '<button type="button" class="btn btn-danger btn-sm ms-2 btn_eliminar"><i class="fas fa-trash"></i></button>',
+                    "orderable": false, // No permite ordenar esta columna
+                    "searchable": false, // No permite buscar esta columna
+                    "width": "60px" // Ancho de la columna
+                }
+            ],
+            "language": {
+               "url": "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json" // Configuración del idioma español
+            }
+        });
+
+        // Función para eliminar una rutina
+        function eliminar_rutina(id_rutina) {
+            // Muestra un mensaje de confirmación utilizando SweetAlert2
+            Swal.fire({
+                title: '¿Desea eliminar la rutina?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma la eliminación, realiza una solicitud AJAX para eliminar la rutina
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Elimina_rutina", "Aprendiz")',
+                        data: { id_rutina: id_rutina },
+                        success: function (response) {
+                            if (response.success) {
+                                // Si la eliminación es exitosa, muestra un mensaje de éxito y recarga los datos de la tabla
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Eliminación exitosa',
+                                    text: 'La rutina se ha eliminado exitosamente'
+                                }).then((result) => {
+                                    tabladata.ajax.reload(); // Recarga los datos de la tabla
+                                });
+                            } else {
+                                // Si no se puede eliminar la rutina, muestra un mensaje de error
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'No se pudo eliminar la rutina: ' + response.error || 'Error desconocido'
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            // Si ocurre un error durante la solicitud AJAX, muestra un mensaje de error en la consola
+                            console.error(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Ocurrió un error al intentar eliminar la rutina'
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // Asigna un evento de clic al botón de eliminar en cada fila de la tabla
+        $(document).on("click", ".btn_eliminar", function () {
+            var fila = $(this).closest("tr"); // Obtiene la fila actual
+            var filaSeleccionada = tabladata.row(fila).data(); // Obtiene los datos de la fila
+            eliminar_rutina(filaSeleccionada.id_rutina); // Llama a la función eliminar_rutina con el ID de la rutina seleccionada
+        });
+
+        // Función para redirigir a la página de edición con la información de la rutina seleccionada
+        function editarRutina(id_rutina, nombre_rutina, nombre_ejercicio, dias_ejercicio, horas_ejercicio, duracion_rutina, maquinas) {
+            // Obtiene las ID de las máquinas seleccionadas para pasarlas como parámetro
+            var maquinasSeleccionadas = maquinas.map(function(maquina) {
+                return maquina.oMaquina.id_maquina;
+            }).join(",");
+            // Redirige a la página de edición con los parámetros necesarios para editar la rutina
+            window.location.href = '@Url.Action("EditarRutina", "Aprendiz")' + '?id_rutina=' + id_rutina + '&nombre_rutina=' + nombre_rutina + '&nombre_ejercicio=' + nombre_ejercicio + '&dias_ejercicio=' + dias_ejercicio + '&horas_ejercicio=' + horas_ejercicio + '&duracion_rutina=' + duracion_rutina + '&maquinas=' + maquinasSeleccionadas;
+        }
+
+        // Asigna un evento de clic al botón de editar en cada fila de la tabla
+        $(document).on("click", ".btn_editar", function () {
+            var fila = $(this).closest("tr"); // Obtiene la fila actual
+            var filaSeleccionada = tabladata.row(fila).data(); // Obtiene los datos de la fila
+            editarRutina(filaSeleccionada.id_rutina, filaSeleccionada.nombre_rutina, filaSeleccionada.oEjercicio.nombre_ejercicio, filaSeleccionada.oEjercicio.dias_ejercicio, filaSeleccionada.oEjercicio.horas_ejercicio, filaSeleccionada.duracion_rutina, filaSeleccionada.oRutina_Maquina);
+        });
+
+    </script>
+}
+

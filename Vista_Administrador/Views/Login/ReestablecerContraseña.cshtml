@@ -1,0 +1,136 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restablecer Contraseña</title>
+    <link href="~/Content/StyleReestablecer.css" rel="stylesheet" />
+</head>
+<body class="bg-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="container">
+                    <div class="text-center">
+                        <img src="/Content/Images/logo.png" alt="Logo del proyecto" class="logo">
+                    </div>
+
+                    <div>
+                        <input class="txt" type="number" id="id_consulta" name="id_consulta" placeholder="Ingrese su numero de identificacion">
+                        <button class="btn btn-primary" onclick="ConsultarUsuario();">Consultar</button>
+                    </div>
+
+                    <br />
+                    <div id="datos_usuario" style="display: none;">
+                        <div>
+                            <input class="txt" type="password" id="nuevacontraseña" name="nuevacontraseña" placeholder="Ingrese su nueva contraseña">
+                        </div>
+                        <br />
+                        <div class="col-12">
+                            <button class="btn btn-success" onclick="GuardarUsuario();">Reestablecer contraseña</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Incluye SweetAlert2 para mostrar mensajes -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Incluye jQuery -->
+    <script>
+        var es_administrador = false; // Variable global para almacenar si el usuario es administrador
+
+        // Función para consultar un usuario y reestablecer su contraseña
+        function ConsultarUsuario() {
+            var id = $("#id_consulta").val(); // Obtiene el ID del usuario desde el input
+            $.ajax({
+                url: '@Url.Action("ConsultarUsuarioReestablecer", "Login")', // URL del controlador y acción para consultar usuario
+                type: "POST", // Tipo de petición AJAX (POST en este caso)
+                data: JSON.stringify({ id: id }), // Datos a enviar (el ID del usuario en formato JSON)
+                dataType: "json", // Tipo de datos esperados
+                contentType: "application/json; charset=utf-8", // Tipo de contenido de la solicitud
+                success: function (data, textStatus, xhr) {
+                    if (xhr.status === 200) { // Si la solicitud es exitosa (código 200)
+                        if (data) {
+                            es_administrador = data.es_administrador; // Almacena si el usuario es administrador
+                            $("#datos_usuario").show(); // Muestra los datos del usuario
+                        } else {
+                            // Si no se encuentra el usuario, muestra un mensaje de error
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'El usuario no existe en la base de datos.'
+                            });
+                        }
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Muestra el error en la consola del navegador
+                    // Muestra un mensaje de error cuando falla la solicitud AJAX
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'El usuario no existe en la base de datos.'
+                    });
+                    $("#datos_usuario").hide(); // Oculta los datos del usuario
+                }
+            });
+        }
+
+        // Función para guardar la nueva contraseña del usuario
+        function GuardarUsuario() {
+            var id = $("#id_consulta").val(); // Obtiene el ID del usuario desde el input
+            var nueva_contraseña = $("#nuevacontraseña").val(); // Obtiene la nueva contraseña desde el input
+            $.ajax({
+                url: '@Url.Action("ActualizarContraseña", "Login")', // URL del controlador y acción para actualizar la contraseña
+                type: "POST", // Tipo de petición AJAX (POST en este caso)
+                data: JSON.stringify({ id: id, nueva_contraseña: nueva_contraseña, es_administrador: es_administrador }), // Datos a enviar (ID, nueva contraseña y si es administrador en formato JSON)
+                dataType: "json", // Tipo de datos esperados
+                contentType: "application/json; charset=utf-8", // Tipo de contenido de la solicitud
+                success: function (data) {
+                    if (data.oper_exitosa) { // Si la operación es exitosa
+                        // Muestra un mensaje de éxito y redirige a la página de inicio de sesión
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Éxito',
+                            text: 'Contraseña actualizada correctamente.'
+                        }).then((result) => {
+                            window.location.href = '@Url.Action("Login", "Login")'; // Redirige a la página de inicio de sesión
+                        });
+                    } else {
+                        // Si hay un error, muestra un mensaje de error con el motivo
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.mensaje
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); // Muestra el error en la consola del navegador
+                    // Muestra un mensaje de error genérico cuando falla la solicitud AJAX
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al intentar actualizar la contraseña.'
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

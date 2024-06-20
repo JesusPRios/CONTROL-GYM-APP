@@ -1,0 +1,212 @@
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\USER\Documents\GitHub\Gym Control Web\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Gym Control Webb\Gym Control Web\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Gym-Control\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Bairon\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Dior\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Usuario\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+<<<<<<< HEAD
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\User\Source\Repos\GCAPP\Capa Negocio\obj\Debug\Capa Negocio.pdb
+=======
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\USER\Source\Repos\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+>>>>>>> d9bdc7424de93df40fb237a4e8aefcb62bd8a236
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\User\Desktop\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Proyecto2\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Usuario\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\User\Desktop\Proyecto\Proyecto\Proyecto\Proyecto2\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\User\Desktop\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\Dior\Desktop\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.dll
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Negocio.pdb
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.dll
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.dll
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Datos.pdb
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\bin\Debug\Capa Entidad.pdb
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.AssemblyReference.cache
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CoreCompileInputs.cache
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.csproj.CopyComplete
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.dll
+C:\Users\prime\Downloads\Proyecto\Proyecto\ProyectoGymControl\Capa Negocio\obj\Debug\Capa Negocio.pdb

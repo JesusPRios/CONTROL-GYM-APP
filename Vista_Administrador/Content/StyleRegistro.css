@@ -1,0 +1,65 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("/Content/Images/login.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Estilo para el fondo negro semitransparente */
+.card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semitransparente */
+    z-index: -1; /* Asegura que el fondo esté detrás del contenido */
+}
+
+section {
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco semitransparente */
+    padding: 205px 100px; /* Ajusta el padding para hacer el section más grande */
+    border-radius: 8px; /* Esquinas redondeadas */
+}
+
+    section input[type="text"],
+    section input[type="password"],
+    section input[type="number"],
+    section select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc; /* Borde de color gris claro */
+        border-radius: 4px; /* Esquinas redondeadas */
+        width: 450px; /* Ancho de los campos de entrada */
+    }
+
+        section input[type="text"]:focus,
+        section input[type="password"]:focus,
+        section input[type="number"]:focus,
+        section select:focus {
+            border-color: #007bff; /* Color del borde al enfocar */
+            outline: none; /* Sin borde de enfoque por defecto */
+        }
+
+    section button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        background-color: #007bff; /* Color de fondo del botón */
+        color: white; /* Color del texto del botón */
+        border: none; /* Sin borde */
+        border-radius: 4px; /* Esquinas redondeadas */
+        cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+        font-size: 16px; /* Tamaño de la fuente */
+    }
+
+        section button:hover {
+            background-color: #0056b3; /* Color de fondo del botón al pasar el cursor */
+        }

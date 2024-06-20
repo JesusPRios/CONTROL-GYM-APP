@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Suspension";
+    Layout = "~/Views/Shared/_Layout - Administrador.cshtml";
+}
+
+<h2>Suspensiones</h2>
+<hr />
+<br />
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-boxes me-1"></i> Lista de Suspensiones
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                @using (Html.BeginForm("Reg_suspension", "Administrador", FormMethod.Post))
+                {
+                    <button class="btn btn-success"> Nueva suspension</button>
+                }
+            </div>
+        </div>
+        <hr />
+        <table id="tabla_suspension" class="display cell-border" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID de la suspension</th>
+                    <th>ID del aprendiz</th>
+                    <th>Nombre del aprendiz</th>
+                    <th>Descripcion de la suspension</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
+                    <th>Duracion</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+
+@section scripts{
+    <!-- Incluye la biblioteca SweetAlert2 para mostrar alertas -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+        // Declara variables para almacenar datos de la tabla y la fila seleccionada
+        var tabladata;
+        var filaSeleccionada;
+
+        // Inicializa el DataTable de la tabla con configuraciones específicas
+        tabladata = $("#tabla_suspension").DataTable({
+            searching: false, // Desactiva la funcionalidad de búsqueda
+            responsive: true, // Permite que la tabla sea responsiva
+            lengthChange: false, // Desactiva el cambio de longitud de página
+            ordering: false, // Desactiva la ordenación de columnas
+            ajax: {
+                url: '@Url.Action("Listar_suspensiones", "Administrador")', // URL para obtener los datos
+                type: "GET", // Método de la solicitud
+                dataType: "json", // Tipo de datos esperados en la respuesta
+            },
+            columns: [ // Define las columnas de la tabla
+                { data: "id_suspension" }, // Columna de ID de suspensión
+                { data: "oAprendiz.id_aprendiz" }, // Columna de ID de aprendiz
+                { data: "oAprendiz.nombre_aprendiz" }, // Columna de nombre de aprendiz
+                { data: "descripcion_suspension" }, // Columna de descripción de suspensión
+                { data: "fecha_inicio_suspension" }, // Columna de fecha de inicio de suspensión
+                { data: "fecha_fin_suspension" }, // Columna de fecha de fin de suspensión
+                { data: "duracion_suspension" }, // Columna de duración de suspensión
+                { data: "estado_suspension" }, // Columna de estado de suspensión
+                { // Columna de botones de acción para editar y eliminar
+                    defaultContent: '<button type="button" class="btn btn-info btn-sm btn_editar"><i class="fas fa-pen"></i></button>' +
+                        '<button type="button" class="btn btn-danger btn-sm ms-2 btn_eliminar" ><i class="fas fa-trash"></i></button>',
+                    "orderable": false, // No se puede ordenar por esta columna
+                    "searchable": false, // No se puede buscar por esta columna
+                    "width": "90px" // Ancho de la columna
+                }
+            ],
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json" // Configuración de idioma
+            }
+        });
+
+        // Función para redireccionar a la página de detalle de suspensión
+        function editar_suspension(id_suspension, id_aprendiz, nombre_aprendiz, descripcion_suspension, fecha_inicio_suspension, fecha_fin_suspension, duracion_suspension, estado_suspension) {
+            window.location.href = '@Url.Action("DetalleSuspencion", "Administrador")' + '?id=' + id_suspension + '&id_aprendiz=' + id_aprendiz + '&nombre=' + nombre_aprendiz + '&descripcion=' + descripcion_suspension + '&fecha_inicio=' + fecha_inicio_suspension + '&fecha_fin=' + fecha_fin_suspension + '&duracion=' + duracion_suspension + '&estado=' + estado_suspension;
+        }
+
+        // Asigna un evento de clic al botón de editar en cada fila de la tabla
+        $(document).on("click", ".btn_editar", function () {
+            var fila = $(this).closest("tr"); // Obtiene la fila actual
+            var filaSeleccionada = tabladata.row(fila).data(); // Obtiene los datos de la fila
+            editar_suspension(filaSeleccionada.id_suspension, filaSeleccionada.oAprendiz.id_aprendiz, filaSeleccionada.oAprendiz.nombre_aprendiz, filaSeleccionada.descripcion_suspension, filaSeleccionada.fecha_inicio_suspension, filaSeleccionada.fecha_fin_suspension, filaSeleccionada.duracion_suspension, filaSeleccionada.estado_suspension);
+        });
+
+        // Función para eliminar una suspensión con confirmación
+        function eliminar_suspension(id_suspension) {
+            Swal.fire({ // Muestra un modal de confirmación utilizando SweetAlert2
+                title: '¿Estás seguro?', // Título del modal
+                icon: 'warning', // Icono de advertencia
+                showCancelButton: true, // Muestra el botón de cancelar
+                confirmButtonColor: '#3085d6', // Color del botón de confirmación
+                cancelButtonColor: '#d33', // Color del botón de cancelar
+                confirmButtonText: 'Sí', // Texto del botón de confirmación
+                cancelButtonText: 'Cancelar' // Texto del botón de cancelar
+            }).then((result) => {
+                if (result.isConfirmed) { // Si se hace clic en el botón de confirmación
+                    $.ajax({ // Realiza una solicitud AJAX para eliminar la suspensión
+                        type: "POST", // Método de la solicitud
+                        url: '@Url.Action("Eliminar_suspension", "Administrador")', // URL de la acción
+                        data: { id_suspension: id_suspension }, // Datos de la solicitud
+                        success: function (response) { // Si la solicitud es exitosa
+                            if (response.success) { // Si la eliminación es exitosa
+                                Swal.fire({ // Muestra un modal de éxito
+                                    icon: 'success', // Icono de éxito
+                                    title: 'Eliminación exitosa', // Título del modal
+                                    text: 'La suspensión ha sido eliminada correctamente de la base de datos.' // Texto del modal
+                                }).then((result) => {
+                                    tabladata.ajax.reload(); // Recarga los datos de la tabla
+                                });
+                            } else { // Si ocurre un error al eliminar la suspensión
+                                Swal.fire({ // Muestra un modal de error
+                                    icon: 'error', // Icono de error
+                                    title: 'Error', // Título del modal
+                                    text: 'Ocurrió un error al eliminar la suspensión: ' + response.error // Texto del modal
+                                });
+                            }
+                        },
+                        error: function (xhr, status, error) { // Si ocurre un error en la solicitud AJAX
+                            console.error(error); // Muestra el error en la consola del navegador
+                            Swal.fire({ // Muestra un modal de error
+                                icon: 'error', // Icono de error
+                                title: 'Error', // Título del modal
+                                text: 'Ocurrió un error al eliminar la suspensión.' // Texto del modal
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // Cuando se hace clic en un botón con la clase ".btn_eliminar", se activa esta función.
+        $(document).on("click", ".btn_eliminar", function () {
+            // Seleccionamos la fila más cercana al botón que se hizo clic y la almacenamos en la variable "fila".
+            var fila = $(this).closest("tr");
+            // Utilizamos la tabla de datos (DataTable) "tabladata" para obtener los datos de la fila seleccionada y los almacenamos en la variable "filaSeleccionada".
+            var filaSeleccionada = tabladata.row(fila).data();
+            // Llamamos a la función "eliminar_suspension" y le pasamos como argumento el ID de la suspensión que queremos eliminar.
+            eliminar_suspension(filaSeleccionada.id_suspension);
+        });
+
+    </script>
+}

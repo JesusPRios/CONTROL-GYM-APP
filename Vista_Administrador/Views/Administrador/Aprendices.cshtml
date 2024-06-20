@@ -1,0 +1,248 @@
+﻿@{
+    ViewBag.Title = "Aprendices";
+    Layout = "~/Views/Shared/_Layout - Administrador.cshtml";
+}
+
+<h2>Aprendices</h2>
+<hr />
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-users"></i> Lista de aprendices
+    </div>
+    <div class="card-body">
+        <hr />
+        <table id="tabla_apren" class="display cell-border" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo de ID</th>
+                    <th>Nombres</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th>Correo</th>
+                    <th>Ficha</th>
+                    <th>Programa de formación</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<!-- Modal -->
+<div class="modal fade" id="FormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--Encabezado-->
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Aprendiz</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="loading-screen" id="loader" style="display:none;">
+                    <div class="loading">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+
+
+                <div class="row g-2">
+                    <div class="col-sm-6">
+                        <label for="txtid" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="txtid" disabled autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="txttipo_id" class="form-label">Tipo de identificación</label>
+                        <input type="text" class="form-control" id="txttipo_id" disabled autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="txtnombres" class="form-label">Nombres</label>
+                        <input type="text" class="form-control" id="txtnombres" disabled autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="txttelefono" class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" id="txttelefono" disabled autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="txtestado" class="form-label">Estado</label>
+                        <select type="text" class="form-control" id="txtestado" autocomplete="off">
+                            >
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="txtcorreo" class="form-label">Correo</label>
+                        <input type="text" class="form-control" id="txtcorreo" disabled autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="txtficha" class="form-label">Ficha</label>
+                        <input type="text" class="form-control" id="txtficha" disabled autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label for="txtprog_form" class="form-label">Programa de formación</label>
+                        <input type="text" class="form-control" id="txtprog_form" disabled autocomplete="off">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="Editar_estado()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <!-- Incluye la librería SweetAlert2 desde su CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- Script JavaScript -->
+    <script>
+        // Declaración de variables globales
+        var tabladata;
+        var filaSeleccionada;
+
+        // Inicialización de la tabla DataTable
+        tabladata = $("#tabla_apren").DataTable({
+            responsive: true, // Permite que la tabla se adapte a diferentes tamaños de pantalla
+            ordering: false, // Desactiva la posibilidad de ordenar las columnas haciendo clic en sus encabezados
+            lengthChange: false, // Oculta la opción para cambiar la cantidad de registros mostrados por página
+            searching: false, // Desactiva la barra de búsqueda
+            "ajax": {
+                url: '@Url.Action("Listar_aprendices", "Administrador")', // Especifica la URL para obtener los datos de los aprendices desde el servidor
+                type: "GET", // Tipo de solicitud HTTP para obtener los datos (GET en este caso)
+                dataType: "json" // Tipo de datos esperados en la respuesta (JSON en este caso)
+            },
+            "columns": [
+                { "data": "id_aprendiz" }, // Define la columna para el ID del aprendiz
+                { "data": "tipo_id_aprendiz" }, // Define la columna para el tipo de identificación del aprendiz
+                { "data": "nombre_aprendiz" }, // Define la columna para el nombre del aprendiz
+                { "data": "telefono_aprendiz" }, // Define la columna para el teléfono del aprendiz
+                { "data": "estado_aprendiz" }, // Define la columna para el estado del aprendiz
+                { "data": "correo_aprendiz" }, // Define la columna para el correo electrónico del aprendiz
+                { "data": "oFicha.numero_ficha" }, // Define la columna para el número de ficha del aprendiz
+                { "data": "oFicha.oPrograma_Form.nombre_programa" }, // Define la columna para el nombre del programa de formación del aprendiz
+                {
+                    // Define la columna para los botones de edición
+                    "defaultContent": '<button type="button" class="btn btn-info btn-sm btn_editar"><i class="fas fa-pen"></i></button>',
+                    "orderable": false, // Indica que esta columna no se puede ordenar
+                    "searchable": false, // Indica que esta columna no es incluida en la búsqueda
+                    "width": "10px" // Establece el ancho de la columna
+                }
+            ],
+            "language": {
+                // Especifica la URL del archivo de idioma para DataTable en español
+                "url": "https://cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json"
+            }
+        });
+
+        // Función para cambiar el estado de un aprendiz
+        function cambiar_estado(json) {
+            // Limpia los campos del formulario modal
+            $("#txtid").val(0);
+            $("#txttipo_id").val("").prop('readonly', false);
+            $("#txtnombres").val("");
+            $("#txttelefono").val("");
+            $("#txtestado").val("");
+            $("#txtcorreo").val("");
+            $("#txtficha").val("");
+            $("#txtprog_form").val("");
+
+            $("#mensajeError").hide();
+
+            // Llena los campos del formulario modal con los datos del aprendiz seleccionado
+            if (json != null) {
+                $("#txtid").val(json.id_aprendiz).prop('readonly', true);
+                $("#txttipo_id").val(json.tipo_id_aprendiz).prop('readonly', true);
+                $("#txtnombres").val(json.nombre_aprendiz).prop('readonly', true);
+                $("#txttelefono").val(json.telefono_aprendiz).prop('readonly', true);
+                $("#txtestado").val(json.estado_aprendiz);
+                $("#txtcorreo").val(json.correo_aprendiz).prop('readonly', true);
+                $("#txtficha").val(json.oFicha.numero_ficha).prop('readonly', true);
+                $("#txtprog_form").val(json.oFicha.oPrograma_Form.nombre_programa).prop('readonly', true);
+            }
+
+            // Muestra el formulario modal
+            $("#FormModal").modal("show");
+        }
+
+        // Evento para el botón de editar en la tabla
+        $('#tabla_apren').on('click', '.btn_editar', function () {
+            // Obtiene la fila seleccionada y los datos del aprendiz correspondiente
+            filaSeleccionada = $(this).closest("tr");
+            var data = tabladata.row(filaSeleccionada).data();
+            // Llama a la función para cambiar el estado del aprendiz
+            cambiar_estado(data);
+        });
+
+        // Función para enviar la solicitud de edición del estado de un aprendiz al servidor
+        function Editar_estado() {
+            // Obtiene los datos del aprendiz y los prepara para enviar al servidor
+            var Aprendiz = {
+                id_aprendiz: $("#txtid").val(),
+                estado_aprendiz: $("#txtestado").val()
+            };
+
+            // Realiza una solicitud AJAX para enviar los datos al servidor y actualizar el estado del aprendiz
+            jQuery.ajax({
+                url: '@Url.Action("Editar_estado_aprendiz", "Administrador")', // URL del controlador y acción para editar el estado del aprendiz
+                type: "POST", // Tipo de solicitud HTTP (POST en este caso)
+                data: JSON.stringify(Aprendiz), // Datos a enviar en formato JSON
+                dataType: "json", // Tipo de datos esperados en la respuesta (JSON en este caso)
+                contentType: "application/json; charset=utf-8", // Tipo de contenido de la solicitud
+                success: function (data) {
+                    // Maneja la respuesta del servidor en caso de éxito
+                    if (data.success) {
+                        // Actualiza solo el estado en la fila correspondiente de la tabla
+                        var row = tabladata.row(filaSeleccionada);
+                        var rowData = row.data();
+                        rowData.estado_aprendiz = Aprendiz.estado_aprendiz;
+                        row.data(rowData).draw(false);
+
+                        // Reinicia la variable de la fila seleccionada y oculta el formulario modal
+                        filaSeleccionada = null;
+                        $("#FormModal").modal("hide");
+
+                        // Muestra una notificación de éxito al usuario
+                        Swal.fire({
+                            icon: "success",
+                            title: "Actualización exitosa"
+                        });
+                    } else {
+                        // Muestra un mensaje de error en caso de que haya ocurrido un problema en el servidor
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.error,
+                        });
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // Muestra un mensaje de error en caso de problemas de comunicación con el servidor
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error al comunicarse con el servidor: ' + textStatus + ' ' + errorThrown// Muestra un mensaje de error al usuario en caso de que ocurra un problema al comunicarse con el servidor durante la solicitud AJAX
+
+                    });
+                }
+            });
+        }
+    </script>
+}

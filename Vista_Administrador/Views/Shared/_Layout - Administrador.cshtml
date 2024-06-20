@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body>
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark">
+        <div class="container-fluid position-relative">
+            <button class="btn btn-link btn-sm position-absolute start-0 top-0 mt-2 ms-3 text-light" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <div class="position-absolute top-50 start-50 translate-middle">
+                <a class="navbar-brand">
+                    <img src="~/Content/Images/logo.png" alt="Logo" width="75" height="75">
+                </a>
+            </div>
+
+            <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="navbar-text ms-2 fw-bold fs-5 d-none d-md-inline" style="color: #fff;" id="adminName"></span>
+                        <i class="fas fa-user fa-fw"></i>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li class="d-md-none">
+                            <a class="dropdown-item">
+                                <span class="navbar-text ms-2 fw-bold fs-5" id="adminNameDropdown"></span>
+                            </a>
+                        </li>
+                        <li><a class="dropdown-item" href=@Url.Action("CerrarSesion", "Login")>Cerrar Sesión</a></li>
+                    </ul>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">MENU PRINCIPAL</div>
+                        <a class="nav-link text-light" href="@Url.Action("Index","Administrador")">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-home"></i></div>
+                            Inicio
+                        </a>
+
+                        <a class="nav-link text-light" href="@Url.Action("Info_personal","Administrador")">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-info"></i></div>
+                            Modificar informacion personal
+                        </a>
+
+                        <a class="nav-link text-light" href="@Url.Action("Aprendices","Administrador")">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-users"></i></div>
+                            Aprendices
+                        </a>
+
+                        <a class="nav-link text-light" href="@Url.Action("Maquinas","Administrador")">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-dumbbell"></i></div>
+                            Maquinas
+                        </a>
+
+                        <a class="nav-link text-light" href="@Url.Action("Suspension","Administrador")">
+                            <div class="sb-nav-link-icon text-danger"><i class="fas fa-exclamation-triangle"></i></div>
+                            Suspender aprendiz
+                        </a>
+
+                        <a class="nav-link collapsed text-light" data-toggle="collapse" href="#reportesCollapse" aria-expanded="false" aria-controls="reportesCollapse">
+                            <div class="sb-nav-link-icon text-dark"><i class="fas fa-file-alt"></i></div>
+                            Reportes
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="reportesCollapse" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link text-light" href="@Url.Action("Reporte_asistencia","Administrador")">
+                                    <div class="sb-nav-link-icon text-dark"><i class="fas fa-file"></i></div>
+                                    Reporte de asistencia
+                                </a>
+
+                                <a class="nav-link text-light" href="@Url.Action("Reporte_maquinas","Administrador")">
+                                    <div class="sb-nav-link-icon text-dark"><i class="fas fa-file"></i></div>
+                                    Reporte de maquinas
+                                </a>
+
+                                <a class="nav-link text-light" href="@Url.Action("Reporte_suspension","Administrador")">
+                                    <div class="sb-nav-link-icon text-dark"><i class="fas fa-file"></i></div>
+                                    Reporte de suspensiones
+                                </a>
+
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    @RenderBody()
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("MostrarInfo", "Administrador")',
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    if (response && response.nombre_administrador) {
+                        $('#adminName').text(response.nombre_administrador);
+                    } else {
+                        $('#adminName').text('@User.Identity.Name');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error al obtener los datos del administrador:', error);
+                    $('#adminName').text('@User.Identity.Name');
+                }
+            });
+        });
+    </script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/complementos")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

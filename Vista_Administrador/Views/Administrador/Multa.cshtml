@@ -1,0 +1,41 @@
+﻿
+@{ ViewBag.Title = "Multa";
+                Layout = "~/Views/Shared/_Layout - Administrador.cshtml"; }
+
+<h2>Sanciones</h2>
+<br />
+<h6>Multar</h6>
+<hr />
+<div>
+    <label class="lbl">Id del aprendiz:</label>
+    <input class="txt" type="text" id="id_aprendiz" />
+</div>
+<br />
+<div>
+    <label class="lbl">Nombre aprendiz:</label>
+    <input class="txt" type="text" id="nombre_aprendiz" />
+</div>
+<br />
+<div>
+    <label class="lbl">Valor de la multa:</label>
+    <input class="txt" type="text" id="valor_multa" />
+</div>
+<br />
+@using (Html.BeginForm("Sancion", "Administrador", FormMethod.Post))
+{
+<button class="atras"> Atras </button>
+                <button class="guardar"> Guardar </button>}
+
+<style>
+    .atras,
+    .guardar {
+        background-color: rgba(150, 201, 126);
+        --bs-btn-border-color: rbga(150, 201, 126);
+        --bs-btn-hover-color: rbga(150, 201, 126);
+        --bs-btn-hover-bg: rgba(150, 201, 126);
+        border: none;
+        border-radius: 10px;
+        margin-left: 15px;
+        padding: 5px;
+    }
+</style>

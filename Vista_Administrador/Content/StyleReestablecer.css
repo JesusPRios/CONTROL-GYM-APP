@@ -1,0 +1,70 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("/Content/Images/login.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 50px;
+    border-radius: 8px;
+}
+
+    .container input[type="text"],
+    .container input[type="password"],
+    .container input[type="number"],
+    .container select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+        .container input[type="text"]:focus,
+        .container input[type="password"]:focus,
+        .container input[type="number"]:focus,
+        .container select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+    .container button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+.logo {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: -150px auto 0;
+}

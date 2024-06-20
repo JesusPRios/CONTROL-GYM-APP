@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "RegistrarRutinas";
+    Layout = "~/Views/Shared/_Layout - Aprendiz.cshtml";
+}
+
+<h2>Crear rutina</h2>
+<hr class="text-dark" />
+<input type="hidden" id="id_aprendiz" value="@ViewBag.IdAprendiz" /> @*Campo oculto para recibir el id del aprendiz que inició sesión*@
+
+<div class="container">
+    <div>
+        <label for="rutina">Ingresar rutina:</label>
+        <input type="text" id="rutina" name="rutina">
+    </div>
+    <br />
+
+    <div>
+        <label for="ejercicio">Ingresar ejercicio:</label>
+        <input type="text" id="ejercicio" name="ejercicio">
+    </div>
+    <br />
+
+    <div>
+        <label for="sele_maquina">Seleccionar maquina:</label>
+        <select class="select2-selection--multiple" name="sele_maquina[]" id="sele_maquina" multiple>
+            <option value=""></option>
+            @foreach (var maquina in ViewBag.Maquinas)
+            {
+                <option value="@maquina.id_maquina">@maquina.nombre_maquina</option>
+            }
+        </select>
+    </div>
+    <br />
+
+    <div>
+        <label for="dias_ejer">Ingresar días de ejercicio semanal:</label>
+        <input type="number" id="dias_ejer" name="dias_ejer" min="0">
+        <span id="dias_label"></span>
+    </div>
+    <br />
+
+    <div>
+        <label for="hora_ejer">Ingresar horas diarias de ejercicio:</label>
+        <input type="number" id="hora_ejer" name="hora_ejer" min="0">
+        <span id="horas_label"></span>
+    </div>
+    <br />
+
+    <div>
+        <label for="duracion">Duración:</label>
+        <input type="text" id="duracion" name="duracion" readonly>
+        <span id="duracion_label"></span>
+    </div>
+    <br />
+
+
+    <div class="col-12">
+        <button type="button" class="btn btn-secondary" id="atras">Atras</button>
+        <button type="button" class="btn btn-success" id="guardar" onclick="Guardar_rutina()">Guardar</button>
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2-selection--multiple').select2({
+                placeholder: "Lista de maquinas"
+            });
+        });
+        document.getElementById("atras").onclick = function () {
+        window.location.href = "@Url.Action("Rutina", "Aprendiz")";
+        };
+
+        function Calcular_duracion() {
+            var dias = parseInt(document.getElementById("dias_ejer").value) || 0;
+            var horas = parseInt(document.getElementById("hora_ejer").value) || 0;
+            var duracionTotal = dias * horas;
+
+            // Actualiza los labels con el número seguido de la palabra adecuada
+            document.getElementById("dias_ejer").textContent = dias > 0 ? dias + " días" : "";
+            document.getElementById("hora_ejer").textContent = horas > 0 ? horas + " horas" : "";
+            document.getElementById("duracion").value = duracionTotal > 0 ? duracionTotal + " horas" : "";
+        }
+
+        document.getElementById("dias_ejer").addEventListener("input", Calcular_duracion);
+        document.getElementById("hora_ejer").addEventListener("input", Calcular_duracion);
+
+
+        function Guardar_rutina() {
+            var maquinasSeleccionadas = $("#sele_maquina").val() ? $("#sele_maquina").val().map(Number) : [];
+            var id_aprendiz = $("#id_aprendiz").val(); // Id del campo oculto
+
+            var Rutina = {
+                id_rutina: 0,
+                nombre_rutina: $("#rutina").val(),
+                oEjercicio: {
+                    nombre_ejercicio: $("#ejercicio").val(),
+                    dias_ejercicio: $("#dias_ejer").val(),
+                    horas_ejercicio: $("#hora_ejer").val()
+                },
+                oRutina_Maquina: maquinasSeleccionadas.map(id => ({ id_maquina: id })),
+                duracion_rutina: $("#duracion").val(),
+                oAprendiz: {
+                    id_aprendiz: id_aprendiz
+                }
+            };
+
+            jQuery.ajax({
+                url: '@Url.Action("Guardar_rutina", "Aprendiz")',
+                type: "POST",
+                data: JSON.stringify({ objeto: Rutina, maquinasSeleccionadas: maquinasSeleccionadas}),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log("Resultado:", data.resultado);
+                    console.log("Mensaje:", data.Mensaje);
+                    if (data.resultado > 0) {
+                        $("#rutina").val("");
+                        $("#ejercicio").val("");
+                        $("#sele_maquina").val(null).trigger('change');
+                        $("#dias_ejer").val("");
+                        $("#hora_ejer").val("");
+                        $("#duracion").val("");
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Registro exitoso',
+                            text: data.Mensaje
+                        }).then((result) => {
+                            window.location.href = '@Url.Action("Rutina", "Aprendiz")';
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.Mensaje
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al intentar registrar la rutina'
+                    });
+                }
+            });
+            console.log(Rutina)
+        }
+
+    </script>
+}
+
+<style>
+    .reg_aprendiz {
+        background-color: rgba(150, 201, 126);
+        --bs-btn-border-color: rbga(150, 201, 126);
+        --bs-btn-hover-color: rbga(150, 201, 126);
+        --bs-btn-hover-bg: rgba(150, 201, 126);
+        border: none;
+        border-radius: 10px;
+        margin-left: 15px;
+        padding: 5px;
+    }
+
+    .container {
+        text-align: left;
+        margin-left: 20px;
+    }
+
+    .lbl {
+        display: inline-block;
+        width: 200px;
+    }
+
+    .txt,
+    select {
+        width: 250px;
+    }
+</style>

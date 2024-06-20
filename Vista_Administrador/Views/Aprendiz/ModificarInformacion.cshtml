@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "Modificar informacion";
+    Layout = "~/Views/Shared/_Layout - Aprendiz.cshtml";
+}
+
+<h2>Modificar información personal</h2>
+<br />
+<h6> Datos personales</h6>
+<hr />
+<div class="container">
+    <div>
+        <label class="lbl">Tipo de identificación:</label>
+        <select class="txt" id="tipo_id" name="tipo_id" disabled>
+            <option value="CC">CC</option>
+            <option value="TI">TI</option>
+        </select>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Número de identificación:</label>
+        <input class="txt" type="text" id="numero_id" name="numero_id" disabled>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Nombres:</label>
+        <input class="txt" type="text" id="nombre" name="nombre">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Correo:</label>
+        <input class="txt" type="text" id="correo" name="correo">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Teléfono:</label>
+        <input class="txt" type="text" id="telefono" name="telefono">
+    </div>
+    <br />
+
+    <div class="col-12">
+        <button id="guardar" class="btn btn-success">Guardar</button>
+    </div>
+</div>
+
+<style>
+    .container {
+        text-align: left;
+        margin-left: 20px;
+    }
+
+    .lbl {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .txt,
+    .select {
+        width: 260px;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Incluye SweetAlert2 para mostrar mensajes -->
+    <script>
+        $(document).ready(function () {
+            // Obtener información del aprendiz
+            $.ajax({
+                url: '@Url.Action("MostrarInfo", "Aprendiz")',
+                type: 'POST',
+                dataType: 'json',
+                success: function (aprendiz) {
+                    // Si se obtiene la información del aprendiz correctamente
+                    if (aprendiz) {
+                        // Llena los campos del formulario con la información obtenida
+                        $('#tipo_id').val(aprendiz.tipo_id_aprendiz);
+                        $('#numero_id').val(aprendiz.id_aprendiz);
+                        $('#nombre').val(aprendiz.nombre_aprendiz);
+                        $('#correo').val(aprendiz.correo_aprendiz);
+                        $('#telefono').val(aprendiz.telefono_aprendiz);
+                    } else {
+                        // Si no se obtiene la información, muestra un mensaje de error con SweetAlert
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Ocurrió un error al obtener los datos del aprendiz.'
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Si ocurre un error durante la solicitud AJAX, muestra un mensaje de error en la consola del navegador
+                    console.error('Error al obtener los datos del aprendiz:', error);
+                }
+            });
+
+            // Manejar el evento de clic del botón "Guardar"
+            $('#guardar').click(function () {
+                // Obtiene los valores actuales de los campos del formulario
+                var aprendiz = {
+                    id_aprendiz: $('#numero_id').val(),
+                    nombre_aprendiz: $('#nombre').val(),
+                    correo_aprendiz: $('#correo').val(),
+                    telefono_aprendiz: $('#telefono').val()
+                };
+
+                // Realiza una solicitud AJAX para actualizar la información del aprendiz
+                $.ajax({
+                    url: '@Url.Action("EditarInfoAprendiz", "Aprendiz")',
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(aprendiz),
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            // Si la actualización es exitosa, muestra un mensaje de éxito con SweetAlert y redirige al usuario a la página principal del aprendiz
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Actualización exitosa',
+                                text: 'La actualización se ha guardado correctamente en la base de datos.'
+                            }).then((result) => {
+                                window.location.href = '@Url.Action("Index", "Aprendiz")';
+                            });
+                        } else {
+                            // Si hay un error en la actualización, muestra un mensaje de error con SweetAlert
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.error
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Si ocurre un error durante la solicitud AJAX, muestra un mensaje de error en la consola del navegador
+                        console.error('Error al actualizar la información:', error);
+                    }
+                });
+            });
+        });
+    </script>
+}

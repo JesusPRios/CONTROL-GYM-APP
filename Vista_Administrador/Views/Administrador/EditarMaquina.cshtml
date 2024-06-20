@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Editar maquina";
+    Layout = "~/Views/Shared/_Layout - Administrador.cshtml";
+}
+
+<h2>Editar máquina</h2>
+<hr />
+<br />
+
+<form id="formEditarMaquina">
+    <div>
+        <label class="lbl">ID Máquina:</label>
+        <input class="txt" type="text" id="id_maquina" name="id_maquina" disabled>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Nombre:</label>
+        <input class="txt" type="text" id="nombre_maquina" name="nombre_maquina">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Tipo de máquina:</label>
+        <input class="txt" type="text" id="tipo_maquina" name="tipo_maquina">
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Estado:</label>
+        <select class="txt" id="estado_maquina" name="estado_maquina">
+            <option value="Activa">Activa</option>
+            <option value="No activa">No activa</option>
+        </select>
+    </div>
+    <br />
+
+    <div>
+        <label class="lbl">Cantidad de máquinas:</label>
+        <input class="txt" type="number" id="cantidad_maquinas" name="cantidad_maquinas">
+    </div>
+    <br />
+
+    <div class="col-12">
+        <button type="button" class="btn btn-secondary" id="atras">Atras</button>
+        <button type="button" class="btn btn-success" id="guardar">Guardar</button>
+    </div>
+</form>
+
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+@section scripts{
+    <!-- Incluye SweetAlert2 desde CDN para mostrar mensajes al usuario -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Función para redireccionar a la página de Máquinas
+        document.getElementById("atras").onclick = function () {
+            window.location.href = "@Url.Action("Maquinas", "Administrador")"; // Redirige a la acción "Maquinas" del controlador "Administrador"
+        };
+
+        // Función que se ejecuta cuando el documento está listo
+        $(document).ready(function () {
+            // Obtiene parámetros de la URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var id_maquina = urlParams.get('id'); // Obtiene el parámetro 'id' de la URL
+            var nombre_maquina = urlParams.get('nombre'); // Obtiene el parámetro 'nombre' de la URL
+            var tipo_maquina = urlParams.get('tipo'); // Obtiene el parámetro 'tipo' de la URL
+            var estado_maquina = urlParams.get('estado'); // Obtiene el parámetro 'estado' de la URL
+            var cantidad_maquinas = urlParams.get('cantidad'); // Obtiene el parámetro 'cantidad' de la URL
+
+            // Asigna los valores obtenidos a los campos correspondientes del formulario
+            $('#id_maquina').val(id_maquina);
+            $('#nombre_maquina').val(nombre_maquina);
+            $('#tipo_maquina').val(tipo_maquina);
+            $('#estado_maquina').val(estado_maquina);
+            $('#cantidad_maquinas').val(cantidad_maquinas);
+
+            // Selecciona la opción correcta para el estado de la máquina
+            $('#estado_maquina').val(estado_maquina).change();
+        });
+
+        // Enviar el formulario mediante AJAX cuando se hace clic en el botón guardar
+        $('#guardar').click(function () {
+            var formData = {
+                id_maquina: $('#id_maquina').val(),
+                nombre_maquina: $('#nombre_maquina').val(),
+                tipo_maquina: $('#tipo_maquina').val(),
+                estado_maquina: $('#estado_maquina').val(),
+                cantidad_maquinas: $('#cantidad_maquinas').val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ActualizarMaquina", "Administrador")", // URL de la acción "ActualizarMaquina" del controlador "Administrador"
+                data: formData, // Datos a enviar al servidor
+                success: function (response) { // Función que se ejecuta si la solicitud AJAX tiene éxito
+                    // Muestra un mensaje de éxito utilizando SweetAlert2
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualización exitosa',
+                        text: 'La actualización se ha guardado correctamente en la base de datos.'
+                    }).then((result) => {
+                        window.location.href = '@Url.Action("Maquinas", "Administrador")'; // Redirige a la acción "Maquinas" del controlador "Administrador"
+                    });
+                },
+                error: function (xhr, status, error) { // Función que se ejecuta si hay un error en la solicitud AJAX
+                    console.error(error); // Imprime el error en la consola del navegador
+                    alert('Ocurrió un error al actualizar la máquina.'); // Muestra una alerta al usuario
+                }
+            });
+        });
+    </script>
+}

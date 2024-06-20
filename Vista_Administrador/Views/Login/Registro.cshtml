@@ -1,0 +1,190 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/StyleRegistro.css" rel="stylesheet" />
+</head>
+<body class="bg-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <section>
+                    <div class="text-center">
+                        <style>
+                            .logo {
+                                max-width: 200px;
+                                height: auto;
+                                display: block;
+                                margin: -150px auto 0; /* Margen arriba 20px, centrado horizontalmente */
+                            }
+
+                            input[type=number]::-webkit-inner-spin-button,
+                            input[type=number]::-webkit-outer-spin-button {
+                                -webkit-appearance: none;
+                                margin: 0;
+                            }
+
+                            input[type=number] {
+                                -moz-appearance: textfield;
+                            }
+                        </style>
+                        <img src="/Content/Images/logo.png" alt="Logo del proyecto" class="logo">
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="text" name="nombres" id="nombres" placeholder="Ingrese su nombre" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <select class="txt" id="tipo_id" name="tipo_id">
+                            <option hidden selected>Tipo de identificación</option>
+                            <option value="CC">CC</option>
+                            <option value="TI">TI</option>
+                        </select>
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="number" name="identificacion" id="identificacion" placeholder="Ingrese su número de identificación" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="text" name="correo" id="correo" placeholder="Ingrese su correo electronico" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="number" name="telefono" id="telefono" placeholder="Ingrese su numero de telefono" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="number" name="numero_ficha" id="numero_ficha" placeholder="Ingrese su número de ficha" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <input type="password" name="contraseña" id="contraseña" placeholder="Ingrese su contraseña" />
+                    </div>
+                    <br />
+
+                    <div>
+                        <button type="button" class="btn btn-success" id="registrar">Guardar</button>
+                    </div>
+                    <br />
+
+                </section>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Incluye jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Incluye SweetAlert2 -->
+    <script>
+        $(document).ready(function () {
+            $('#registrar').click(function () {
+                Guardar(); // Asocia la función Guardar() al evento click del botón "Registrar"
+            });
+        });
+
+        function Guardar() {
+            // Obtiene los valores de los campos del formulario
+            var identificacion = $("#identificacion").val().trim();
+            var nombres = $("#nombres").val().trim();
+            var tipo_id = $("#tipo_id").val().trim();
+            var contraseña = $("#contraseña").val().trim();
+            var telefono = $("#telefono").val().trim();
+            var correo = $("#correo").val().trim();
+            var numero_ficha = $("#numero_ficha").val().trim();
+
+            // Validación de campos
+            if (identificacion === '' || nombres === '' || tipo_id === '' || contraseña === '' || telefono === '' || correo === '' || numero_ficha === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Por favor complete todos los campos.'
+                });
+                return;
+            }
+
+            // Validación específica para el campo identificacion
+            if (isNaN(identificacion) || identificacion <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El campo Identificación debe ser un número válido.'
+                });
+                return;
+            }
+
+            // Validación específica para el campo numero_ficha
+            if (isNaN(numero_ficha) || numero_ficha <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El campo Número de ficha debe ser un número válido.'
+                });
+                return;
+            }
+
+            // Objeto con los datos del aprendiz a registrar
+            var Aprendiz = {
+                id_aprendiz: parseInt(identificacion),
+                tipo_id_aprendiz: tipo_id,
+                nombre_aprendiz: nombres,
+                contraseña_aprendiz: contraseña,
+                telefono_aprendiz: parseInt(telefono),
+                correo_aprendiz: correo,
+                oFicha: {
+                    numero_ficha: parseInt(numero_ficha)
+                }
+            };
+
+            // Envío de los datos del aprendiz mediante AJAX
+            $.ajax({
+                url: '@Url.Action("RegistrarAprendiz", "Login")', // URL del controlador y acción para registrar aprendiz
+                type: "POST", // Tipo de petición AJAX (POST en este caso)
+                data: JSON.stringify(Aprendiz), // Datos a enviar (aprendiz en formato JSON)
+                contentType: "application/json; charset=utf-8", // Tipo de contenido de la solicitud
+                dataType: "json", // Tipo de datos esperados en la respuesta
+                success: function (data) {
+                    if (data.oper_exitosa) { // Si la operación es exitosa
+                        // Muestra un mensaje de éxito y redirige a la página de inicio de sesión
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Registro exitoso',
+                            text: 'El aprendiz ha sido registrado correctamente.'
+                        }).then((result) => {
+                            window.location.href = '@Url.Action("Login", "Login")'; // Redirige a la página de inicio de sesión
+                        });
+                    } else {
+                        // Si hay un error, muestra un mensaje de error con el motivo
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.mensaje
+                        });
+                    }
+                },
+                error: function () {
+                    // Muestra un mensaje de error genérico cuando falla la solicitud AJAX
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ocurrió un error al intentar registrar al aprendiz.'
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
