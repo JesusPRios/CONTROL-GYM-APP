@@ -84,6 +84,7 @@ namespace Capa_Datos
                     cmd.Parameters.AddWithValue("@fecha_fin_suspension", obj.fecha_fin_suspension);
                     cmd.Parameters.AddWithValue("@duracion_suspension", obj.duracion_suspension);
                     cmd.Parameters.AddWithValue("@estado_suspension", obj.estado_suspension);
+                    cmd.Parameters.AddWithValue("@nombre_aprendiz", obj.nombre_aprendiz); // Asegúrate de que este parámetro está en el objeto 'obj'
                     cmd.Parameters.AddWithValue("@id_aprendiz", obj.oAprendiz.id_aprendiz);
                     cmd.Parameters.Add("@Resultado", SqlDbType.Int).Direction = ParameterDirection.Output; 
                     cmd.Parameters.Add("@Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;  

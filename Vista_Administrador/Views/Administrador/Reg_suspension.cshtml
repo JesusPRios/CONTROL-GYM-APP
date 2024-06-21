@@ -24,7 +24,7 @@
             <div class="column">
                 <div>
                     <label class="lbl">Nombre aprendiz:</label>
-                    <input class="txt" type="text" id="nombre_aprendiz" name="nombre_aprendiz" disabled>
+                    <input class="txt" type="text" id="nombre_aprendiz" name="nombre_aprendiz" readonly>
                 </div>
                 <br />
 
@@ -121,89 +121,67 @@
     }
 
     // Función para guardar la suspensión mediante AJAX
-    function Guardar_suspension() {
-        // Obtener los valores de los campos de la suspensión
-        var descripcion_suspension = $("#descripcion_suspension").val();
-        var fecha_inicio_suspension = $("#ini_suspension").val();
-        var fecha_fin_suspension = $("#fin_suspension").val();
-        var duracion_suspension = $("#duracion_susp").val();
-        var estado_suspension = $("#estado_suspension").val();
-        var id_aprendiz = $("#id_aprendiz").val();
+   function Guardar_suspension() {
+    var nombre_aprendiz = $("#nombre_aprendiz").val(); // Captura manual del valor
 
-        // Validar que todos los campos obligatorios estén llenos
-        if (!descripcion_suspension || !fecha_inicio_suspension || !fecha_fin_suspension || !duracion_suspension || !estado_suspension || !id_aprendiz) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Advertencia',
-                text: 'Por favor, complete todos los campos obligatorios'
-            });
-            return; // Salir de la función si la validación falla
-        }
+       var Suspension = {
+           id_suspension: 0,
+           descripcion_suspension: $("#descripcion_suspension").val(),
+           fecha_inicio_suspension: $("#ini_suspension").val(),
+           fecha_fin_suspension: $("#fin_suspension").val(),
+           duracion_suspension: $("#duracion_susp").val(),
+           estado_suspension: $("#estado_suspension").val(),
+           nombre_aprendiz: $("#nombre_aprendiz").val(), // Captura manual
+           oAprendiz: {
+               id_aprendiz: parseInt($("#id_aprendiz").val())
+           }
+       };
 
-        // Luego validar y calcular la duración de la suspensión
-        if (!calcularDias()) {
-            return; // Salir de la función si la validación de fechas falla
-        }
+    console.log(Suspension); // Depuración: verificar el objeto antes de enviarlo
 
-        // Crear el objeto de suspensión para enviar al servidor
-        var Suspension = {
-            id_suspension: 0, // Asumimos que es nueva y la base de datos asignará el ID
-            descripcion_suspension: descripcion_suspension,
-            fecha_inicio_suspension: fecha_inicio_suspension,
-            fecha_fin_suspension: fecha_fin_suspension,
-            duracion_suspension: duracion_suspension,
-            estado_suspension: estado_suspension,
-            oAprendiz: {
-                id_aprendiz: id_aprendiz
-            }
-        };
+    // Enviar la solicitud AJAX para guardar la suspensión
+    $.ajax({
+        url: '@Url.Action("Guardar_suspension", "Administrador")',
+        type: "POST",
+        data: JSON.stringify(Suspension),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data.resultado != 0) {
+                // Limpiar los campos del formulario después de guardar la suspensión
+                $("#id_aprendiz").val("");
+                $("#nombre_aprendiz").val("");
+                $("#descripcion_suspension").val("");
+                $("#ini_suspension").val("");
+                $("#fin_suspension").val("");
+                $("#duracion_susp").val("");
+                $("#estado_suspension").val("");
 
-        // Enviar la solicitud AJAX para guardar la suspensión
-        $.ajax({
-            url: '@Url.Action("Guardar_suspension", "Administrador")',
-            type: "POST",
-            data: JSON.stringify({ objeto: Suspension }),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.resultado != 0) {
-                    // Limpiar los campos del formulario después de guardar la suspensión
-                    $("#id_aprendiz").val("");
-                    $("#nombre_aprendiz").val("");
-                    $("#descripcion_suspension").val("");
-                    $("#ini_suspension").val("");
-                    $("#fin_suspension").val("");
-                    $("#duracion_susp").val("");
-                    $("#estado_suspension").val("");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registro exitoso',
+                    text: 'La suspensión se ha registrado exitosamente'
+                }).then((result) => {
+                    window.location.href = '@Url.Action("Suspension", "Administrador")';
+                });
 
-                    // Mostrar mensaje de éxito con SweetAlert y redirigir a la página de suspensión
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registro exitoso',
-                        text: 'La suspensión se ha registrado exitosamente'
-                    }).then((result) => {
-                        window.location.href = '@Url.Action("Suspension", "Administrador")';
-                    });
-
-                } else {
-                    // Mostrar mensaje de error si falla el registro de la suspensión
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: data.Mensaje
-                    });
-                }
-            },
-            error: function (xhr, status, error) {
-                // Mostrar mensaje de error si falla la solicitud AJAX
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Ocurrió un error al intentar registrar la suspensión'
+                    text: data.mensaje
                 });
             }
-        });
-    }
+        },
+        error: function (xhr, status, error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ocurrió un error al intentar registrar la suspensión'
+            });
+        }
+    });
+}
 
     // Función para calcular la duración de la suspensión en días o meses
     function calcularDias() {
