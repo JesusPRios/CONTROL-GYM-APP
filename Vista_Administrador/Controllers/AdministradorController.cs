@@ -287,41 +287,35 @@ namespace Vista_Administrador.Controllers
 
         // Acción HTTP POST para editar una suspensión en la base de datos
         [HttpPost]
-        public ActionResult EditarSuspension(int id_suspension, string descripcion_suspension, string fecha_fin_suspension, string duracion_suspension, string estado_suspension)
+        public ActionResult EditarSuspension(int id_suspension, int id_aprendiz, string descripcion_suspension, string nombre_aprendiz, string fecha_inicio_suspension, string fecha_fin_suspension, string duracion_suspension, string estado_suspension)
         {
             try
             {
-                // Intenta realizar la operación de edición de la suspensión en la base de datos
+
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["cadena"].ToString()))
                 {
-                    // Crear el comando para llamar al procedimiento almacenado "Editar_suspension"
                     SqlCommand command = new SqlCommand("Editar_suspension", con);
-                    // Establecer que el tipo de comando es un procedimiento almacenado
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    // Agregar los parámetros necesarios para la edición de la suspensión
                     command.Parameters.AddWithValue("@id_suspension", id_suspension);
+                    command.Parameters.AddWithValue("@id_aprendiz", id_aprendiz);
+                    command.Parameters.AddWithValue("@nombre_aprendiz", nombre_aprendiz);
+                    command.Parameters.AddWithValue("@fecha_inicio_suspension", fecha_inicio_suspension);
                     command.Parameters.AddWithValue("@descripcion_suspension", descripcion_suspension);
                     command.Parameters.AddWithValue("@fecha_fin_suspension", fecha_fin_suspension);
                     command.Parameters.AddWithValue("@duracion_suspension", duracion_suspension);
                     command.Parameters.AddWithValue("@estado_suspension", estado_suspension);
 
-                    // Abrir la conexión con la base de datos
                     con.Open();
-
-                    // Ejecutar el comando para realizar la edición de la suspensión
                     command.ExecuteNonQuery();
-
-                    // Cerrar la conexión con la base de datos
                     con.Close();
                 }
 
-                // Devolver una respuesta JSON indicando que la operación fue exitosa
                 return Json(new { success = true });
             }
             catch (Exception ex)
             {
-                // En caso de error, devolver una respuesta JSON indicando que la operación falló y el mensaje de error
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
                 return Json(new { success = false, error = ex.Message });
             }
         }

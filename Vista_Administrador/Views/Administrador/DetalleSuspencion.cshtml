@@ -22,7 +22,7 @@
 
     <div>
         <label class="lbl">Nombre Aprendiz:</label>
-        <input class="txt" type="text" id="nombre_aprendiz" name="nombre_aprendiz" disabled>
+        <input class="txt" type="text" id="nombre_aprendiz" name="nombre_aprendiz" readonly>
     </div>
     <br />
 
@@ -100,11 +100,14 @@
         $('#guardar').click(function () {
             // Se crea un objeto formData que contiene los datos del formulario
             var formData = {
-                id_suspension: $('#id_suspension').val(), // Obtiene el valor del campo id_suspension del formulario
-                descripcion_suspension: $('#descripcion_suspension').val(), // Obtiene el valor del campo descripcion_suspension del formulario
-                fecha_fin_suspension: $('#fecha_fin_suspension').val(), // Obtiene el valor del campo fecha_fin_suspension del formulario
-                duracion_suspension: $('#duracion_suspension').val(), // Obtiene el valor del campo duracion_suspension del formulario
-                estado_suspension: $('#estado_suspension').val() // Obtiene el valor del campo estado_suspension del formulario
+                id_suspension: $('#id_suspension').val(),
+                id_aprendiz: $('#id_aprendiz').val(),
+                nombre_aprendiz: $('#nombre_aprendiz').val(),
+                descripcion_suspension: $('#descripcion_suspension').val(),
+                fecha_inicio_suspension: $('#fecha_inicio_suspension').val(),
+                fecha_fin_suspension: $('#fecha_fin_suspension').val(),
+                duracion_suspension: $('#duracion_suspension').val(),
+                estado_suspension: $('#estado_suspension').val()
             };
 
             // Se realiza una solicitud AJAX al servidor

@@ -87,24 +87,24 @@ namespace Capa_Datos
         // Método para registrar una nueva rutina
         public bool Registrar_rutina(Rutina obj, out string Mensaje)
         {
-            bool resultado = false;  
-            Mensaje = string.Empty; 
+            bool resultado = false;
+            Mensaje = string.Empty;
 
             try
             {
-                using (SqlConnection oconexion = new SqlConnection(Conexion.cn))  // Crea una conexión utilizando la cadena de conexión de la clase Conexion
+                using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
                 {
-                    oconexion.Open();  // Abre la conexión a la base de datos
+                    oconexion.Open();
 
-                    using (SqlTransaction transaction = oconexion.BeginTransaction())  // Inicia una transacción
+                    using (SqlTransaction transaction = oconexion.BeginTransaction())
                     {
                         try
                         {
-                            // Prepara el comando para el procedimiento almacenado
+                            // Preparar el comando para el procedimiento almacenado
                             SqlCommand cmd = new SqlCommand("Registrar_rutina", oconexion, transaction);
                             cmd.CommandType = CommandType.StoredProcedure;
 
-                            // Añade parámetros al comando
+                            // Añadir parámetros al comando
                             cmd.Parameters.AddWithValue("@nombre_rutina", obj.nombre_rutina);
                             cmd.Parameters.AddWithValue("@duracion_rutina", obj.duracion_rutina);
                             cmd.Parameters.AddWithValue("@nombre_ejercicio", obj.oEjercicio.nombre_ejercicio);
@@ -118,10 +118,10 @@ namespace Capa_Datos
                             cmd.Parameters.Add(outputMensaje);
                             cmd.Parameters.Add(outputResultado);
 
-                            // Ejecuta el procedimiento almacenado
+                            // Ejecutar el procedimiento almacenado
                             cmd.ExecuteNonQuery();
 
-                            // Obtiene los valores de los parámetros de salida
+                            // Obtener los valores de los parámetros de salida
                             Mensaje = outputMensaje.Value.ToString();
                             int idRutina = (int)outputResultado.Value;
 
@@ -136,33 +136,28 @@ namespace Capa_Datos
                                     cmdMaquina.ExecuteNonQuery();
                                 }
 
-                                resultado = true;  // Establece el resultado como verdadero si se insertaron las máquinas correctamente
+                                resultado = true;
+                                Mensaje = "La rutina se ha registrado exitosamente.";
                             }
 
-                            // Commit de la transacción
+                            // Confirmar la transacción
                             transaction.Commit();
                         }
                         catch (Exception ex)
                         {
-                            // Rollback de la transacción en caso de error
+                            // Revertir la transacción en caso de error
                             transaction.Rollback();
-                            Mensaje = ex.Message;  // Guarda el mensaje de excepción
+                            Mensaje = "Error durante la transacción: " + ex.Message;
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Captura de excepciones a nivel superior
-                Mensaje = ex.Message;  // Guarda el mensaje de excepción
+                Mensaje = "Error de conexión: " + ex.Message;
             }
 
-            if (resultado)
-            {
-                Mensaje = "La rutina se ha registrado exitosamente";  // Establece el mensaje de éxito si el resultado es verdadero
-            }
-
-            return resultado;  // Devuelve el resultado de la operación
+            return resultado;
         }
 
         // Método para elimianr una rutina
